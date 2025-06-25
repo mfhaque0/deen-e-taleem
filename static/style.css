@@ -469,3 +469,31 @@ a:hover {
 }
 .blog-content-container .back-link:hover {
     background-color: #5a6268
+}
+
+/* --- Custom Navbar Button Colors (NEW) --- */
+.navbar .btn-outline-light {
+    color: #FFC107; /* Gold color for the text */
+    border-color: #FFC107; /* Gold color for the border */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* --- Hover effect for the custom navbar buttons (NEW) --- */
+.navbar .btn-outline-light:hover {
+    color: #004d40; /* Dark green text on hover (to match navbar) */
+    background-color: #FFC107; /* Gold background on hover */
+    border-color: #FFC107; /* Ensure border remains gold on hover */
+}
+
+/* --- Style for the active/current page button (NEW) --- */
+.navbar .btn-light {
+    color: #004d40; /* Dark green text */
+    background-color: #FFC107; /* Gold background */
+    border-color: #FFC107; /* Gold border */
+}
+
+/* Optional: Make the active button's hover state slightly different (NEW) */
+.navbar .btn-light:hover {
+    background-color: #FFD700; /* A slightly brighter gold on hover */
+    border-color: #FFD700;
+}
