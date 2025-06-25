@@ -1,0 +1,552 @@
+[
+  {
+    "question": "Who was the last Prophet of Islam?",
+    "options": [
+      "Prophet Isa (AS)",
+      "Prophet Musa (AS)",
+      "Prophet Ibrahim (AS)",
+      "Prophet Muhammad (SAW)"
+    ],
+    "correct": 3,
+    "explanation": "Prophet Muhammad (peace be upon him) is the final Prophet of Islam. Allah says in the Qur'an: 'Muhammad is not the father of any of your men, but he is the Messenger of Allah and the Seal of the Prophets.' (Surah Al-Ahzab 33:40)"
+  },
+  {
+    "question": "Which angel brought revelation to the Prophets?",
+    "options": [
+      "Jibreel (AS)",
+      "Mikail (AS)",
+      "Israfil (AS)",
+      "Malik (AS)"
+    ],
+    "correct": 0,
+    "explanation": "Angel Jibreel (AS) brought the divine revelations to all Prophets including Prophet Muhammad (peace be upon him)."
+  },
+  {
+    "question": "How many times is Salah obligatory daily?",
+    "options": [
+      "3",
+      "5",
+      "7",
+      "10"
+    ],
+    "correct": 1,
+    "explanation": "Salah is obligatory five times a day: Fajr, Dhuhr, Asr, Maghrib, and Isha."
+  },
+  {
+    "question": "What is the first pillar of Islam?",
+    "options": [
+      "Zakat",
+      "Shahadah",
+      "Hajj",
+      "Salah"
+    ],
+    "correct": 1,
+    "explanation": "The first pillar of Islam is Shahadah: 'There is no god but Allah, and Muhammad is His Messenger.'"
+  },
+  {
+    "question": "Which Surah is known as the Heart of the Quran?",
+    "options": [
+      "Surah Al-Baqarah",
+      "Surah Yaseen",
+      "Surah Al-Fatiha",
+      "Surah An-Nas"
+    ],
+    "correct": 1,
+    "explanation": "Surah Yaseen is often called the 'Heart of the Qur'an' due to its powerful message."
+  },
+  {
+    "question": "How many Surahs are there in the Qur'an?",
+    "options": [
+      "99",
+      "100",
+      "114",
+      "120"
+    ],
+    "correct": 2,
+    "explanation": "The Qur'an contains 114 Surahs."
+  },
+  {
+    "question": "In which city was Prophet Muhammad (SAW) born?",
+    "options": [
+      "Medina",
+      "Jerusalem",
+      "Mecca",
+      "Taif"
+    ],
+    "correct": 2,
+    "explanation": "The Prophet Muhammad (peace be upon him) was born in Mecca in the year 570 CE."
+  },
+  {
+    "question": "Which Prophet was swallowed by a big fish?",
+    "options": [
+      "Prophet Yusuf (AS)",
+      "Prophet Yunus (AS)",
+      "Prophet Musa (AS)",
+      "Prophet Nuh (AS)"
+    ],
+    "correct": 1,
+    "explanation": "Prophet Yunus (AS) was swallowed by a great fish after leaving his people prematurely."
+  },
+  {
+    "question": "How many months are there in the Islamic calendar?",
+    "options": [
+      "10",
+      "12",
+      "13",
+      "14"
+    ],
+    "correct": 1,
+    "explanation": "The Islamic (Hijri) calendar has 12 lunar months."
+  },
+  {
+    "question": "Which night is better than a thousand months?",
+    "options": [
+      "Shab-e-Barat",
+      "Laylatul Qadr",
+      "Arafah Night",
+      "Eid Night"
+    ],
+    "correct": 1,
+    "explanation": "Laylatul Qadr (Night of Decree) is better than a thousand months. (Surah Al-Qadr)"
+  },
+  {
+    "question": "Who built the Kaaba first?",
+    "options": [
+      "Prophet Musa (AS)",
+      "Prophet Isa (AS)",
+      "Prophet Ibrahim (AS) and Ismail (AS)",
+      "Prophet Muhammad (SAW)"
+    ],
+    "correct": 2,
+    "explanation": "Prophet Ibrahim (AS) and his son Ismail (AS) raised the foundations of Kaaba."
+  },
+  {
+    "question": "Which Surah starts without Bismillah?",
+    "options": [
+      "Surah Al-Tawbah",
+      "Surah Al-Baqarah",
+      "Surah Al-Fatiha",
+      "Surah Al-Ikhlas"
+    ],
+    "correct": 0,
+    "explanation": "Surah Al-Tawbah is the only Surah that does not begin with 'Bismillah...'"
+  },
+  {
+    "question": "What does 'Zakat' mean?",
+    "options": [
+      "Purification",
+      "Charity",
+      "Donation",
+      "Forgiveness"
+    ],
+    "correct": 0,
+    "explanation": "Zakat means purification and is a compulsory charity upon wealth."
+  },
+  {
+    "question": "Who was the first Caliph after Prophet Muhammad (SAW)?",
+    "options": [
+      "Umar (RA)",
+      "Uthman (RA)",
+      "Abu Bakr (RA)",
+      "Ali (RA)"
+    ],
+    "correct": 2,
+    "explanation": "Abu Bakr As-Siddiq (RA) was the first Caliph after the Prophet (peace be upon him)."
+  },
+  {
+    "question": "Who is known as Dhul-Noon?",
+    "options": [
+      "Prophet Nuh (AS)",
+      "Prophet Musa (AS)",
+      "Prophet Yunus (AS)",
+      "Prophet Isa (AS)"
+    ],
+    "correct": 2,
+    "explanation": "Prophet Yunus (AS) is known as Dhul-Noon (Man of the Fish)."
+  },
+  {
+    "question": "How many companions participated in the Battle of Badr?",
+    "options": [
+      "100",
+      "313",
+      "500",
+      "1000"
+    ],
+    "correct": 1,
+    "explanation": "313 Muslims fought in the Battle of Badr, and Allah granted them victory."
+  },
+  {
+    "question": "Which animal is mentioned in Surah Al-Fil?",
+    "options": [
+      "Elephant",
+      "Camel",
+      "Horse",
+      "Cow"
+    ],
+    "correct": 0,
+    "explanation": "Surah Al-Fil refers to the story of Abraha's army with elephants attacking Kaaba."
+  },
+  {
+    "question": "Who was the mother of Prophet Isa (AS)?",
+    "options": [
+      "Hannah",
+      "Sarah",
+      "Maryam",
+      "Aisha"
+    ],
+    "correct": 2,
+    "explanation": "Maryam (AS) was the mother of Prophet Isa (AS)."
+  },
+  {
+    "question": "How old was Prophet Muhammad (SAW) when he received first revelation?",
+    "options": [
+      "30",
+      "35",
+      "40",
+      "50"
+    ],
+    "correct": 2,
+    "explanation": "The first revelation was given when Prophet Muhammad (SAW) was 40 years old."
+  },
+  {
+    "question": "Which Prophet split the sea by Allah's command?",
+    "options": [
+      "Prophet Musa (AS)",
+      "Prophet Ibrahim (AS)",
+      "Prophet Nuh (AS)",
+      "Prophet Isa (AS)"
+    ],
+    "correct": 0,
+    "explanation": "Prophet Musa (AS) split the sea by Allah's will, allowing Bani Israel to cross."
+  },
+  {
+    "question": "Who was the first man created by Allah?",
+    "options": [
+      "Prophet Ibrahim (AS)",
+      "Prophet Adam (AS)",
+      "Prophet Nuh (AS)",
+      "Prophet Isa (AS)"
+    ],
+    "correct": 1,
+    "explanation": "Prophet Adam (AS) was the first human created by Allah."
+  },
+  {
+    "question": "How many articles of faith are there in Islam?",
+    "options": [
+      "3",
+      "5",
+      "6",
+      "8"
+    ],
+    "correct": 2,
+    "explanation": "There are 6 articles of faith (Iman): belief in Allah, His Angels, His Books, His Messengers, the Last Day, and Divine Decree (Qadar)."
+  },
+  {
+    "question": "Who was the first martyr (shaheed) in Islam?",
+    "options": [
+      "Hamza (RA)",
+      "Sumayyah (RA)",
+      "Bilal (RA)",
+      "Umar (RA)"
+    ],
+    "correct": 1,
+    "explanation": "Sumayyah bint Khayyat (RA) was the first martyr in Islam."
+  },
+  {
+    "question": "Who led the Muslims in the Battle of Uhud?",
+    "options": [
+      "Abu Bakr (RA)",
+      "Ali (RA)",
+      "Umar (RA)",
+      "Prophet Muhammad (SAW)"
+    ],
+    "correct": 3,
+    "explanation": "Prophet Muhammad (SAW) himself led the Muslims in the Battle of Uhud."
+  },
+  {
+    "question": "What is the name of the well near Kaaba?",
+    "options": [
+      "Zamzam",
+      "Safaa",
+      "Marwah",
+      "Hajar"
+    ],
+    "correct": 0,
+    "explanation": "The well of Zamzam is located near Kaaba and miraculously gushed forth for Hajar and her son Ismail (AS)."
+  },
+  {
+    "question": "Which Surah is called the 'Mother of the Book'?",
+    "options": [
+      "Surah Yaseen",
+      "Surah Al-Fatiha",
+      "Surah Al-Ikhlas",
+      "Surah Al-Kahf"
+    ],
+    "correct": 1,
+    "explanation": "Surah Al-Fatiha is known as the 'Mother of the Book' (Umm al-Kitab)."
+  },
+  {
+    "question": "How many names of Allah are mentioned as Asmaul Husna?",
+    "options": [
+      "99",
+      "100",
+      "50",
+      "25"
+    ],
+    "correct": 0,
+    "explanation": "Allah has 99 beautiful names (Asmaul Husna) mentioned in Hadith and Qur'an."
+  },
+  {
+    "question": "Which Prophet built the Ark to save people from flood?",
+    "options": [
+      "Prophet Ibrahim (AS)",
+      "Prophet Musa (AS)",
+      "Prophet Isa (AS)",
+      "Prophet Nuh (AS)"
+    ],
+    "correct": 3,
+    "explanation": "Prophet Nuh (AS) built the Ark (Ship) by Allah's command to save the believers from the flood."
+  },
+
+  {
+    "question": "Who was the first Muazzin (caller to prayer) in Islam?",
+    "options": ["Umar (RA)", "Abu Bakr (RA)", "Bilal (RA)", "Ali (RA)"],
+    "correct": 2,
+    "explanation": "Bilal (RA) was appointed as the first Muazzin of Islam by the Prophet Muhammad (Sallallahu Alaihi Wasallam)."
+  },
+  {
+    "question": "Which battle is known as the first battle in Islam?",
+    "options": ["Battle of Uhud", "Battle of Khandaq", "Battle of Tabuk", "Battle of Badr"],
+    "correct": 3,
+    "explanation": "The Battle of Badr was the first major battle between the Muslims and Quraysh."
+  },
+  {
+    "question": "What is the reward of fasting in Ramadan mentioned in Hadith Qudsi?",
+    "options": ["Forgiveness only", "Paradise only", "Limitless reward", "One good deed multiplied 10 times"],
+    "correct": 2,
+    "explanation": "Allah says in Hadith Qudsi: 'Fasting is for Me, and I shall reward it Myself.'"
+  },
+  {
+    "question": "Which Prophet was swallowed by a big fish?",
+    "options": ["Prophet Nuh (AS)", "Prophet Yunus (AS)", "Prophet Musa (AS)", "Prophet Isa (AS)"],
+    "correct": 1,
+    "explanation": "Prophet Yunus (AS) was swallowed by the fish and then repented to Allah."
+  },
+  {
+    "question": "Which Surah is known as the 'Chapter of Sincerity'?",
+    "options": ["Surah Al-Ikhlas", "Surah Al-Kafirun", "Surah Al-Nas", "Surah Al-Falaq"],
+    "correct": 0,
+    "explanation": "Surah Al-Ikhlas describes pure Tawheed (oneness of Allah)."
+  },
+  {
+    "question": "Who is known as Khatam an-Nabiyyin (Seal of the Prophets)?",
+    "options": ["Prophet Musa (AS)", "Prophet Isa (AS)", "Prophet Ibrahim (AS)", "Prophet Muhammad (Sallallahu Alaihi Wasallam)"],
+    "correct": 3,
+    "explanation": "Prophet Muhammad (Sallallahu Alaihi Wasallam) is the last and final Prophet."
+  },
+  {
+    "question": "Which animal was gifted to the Prophet (Sallallahu Alaihi Wasallam) on the night of Isra and Miraj?",
+    "options": ["Camel", "Horse", "Buraq", "Elephant"],
+    "correct": 2,
+    "explanation": "Buraq was the special animal that carried the Prophet during Isra and Miraj."
+  },
+  {
+    "question": "How many daily obligatory prayers (Salah) are there in Islam?",
+    "options": ["3", "5", "7", "2"],
+    "correct": 1,
+    "explanation": "There are 5 obligatory prayers in Islam: Fajr, Dhuhr, Asr, Maghrib, and Isha."
+  },
+  {
+    "question": "Which companion compiled the Qur'an into a single book after the Prophet's death?",
+    "options": ["Umar (RA)", "Uthman (RA)", "Abu Bakr (RA)", "Ali (RA)"],
+    "correct": 2,
+    "explanation": "Abu Bakr (RA) assigned Zaid bin Thabit (RA) to compile the Qur'an into one book."
+  },
+  {
+    "question": "Which tree is mentioned by name in the Qur'an?",
+    "options": ["Palm", "Olive", "Cedar", "Apple"],
+    "correct": 1,
+    "explanation": "The Olive tree is mentioned directly in Surah An-Nur and Surah At-Tin."
+  },
+  {
+    "question": "Which Prophet spoke when he was still a baby?",
+    "options": ["Prophet Isa (AS)", "Prophet Musa (AS)", "Prophet Yusuf (AS)", "Prophet Muhammad (Sallallahu Alaihi Wasallam)"],
+    "correct": 0,
+    "explanation": "Prophet Isa (AS) spoke from his cradle to defend his mother Maryam (AS)."
+  },
+  {
+    "question": "What is the name of the angel responsible for blowing the trumpet on the Day of Judgement?",
+    "options": ["Jibril", "Israfil", "Mikail", "Azrael"],
+    "correct": 1,
+    "explanation": "Israfil is responsible for blowing the trumpet on the Day of Judgement."
+  },
+  {
+    "question": "Which chapter of the Qur'an has the most number of verses?",
+    "options": ["Surah Al-Baqarah", "Surah Al-Imran", "Surah Al-Mulk", "Surah Al-Ahzab"],
+    "correct": 0,
+    "explanation": "Surah Al-Baqarah has 286 verses, the longest Surah in the Qur'an."
+  },
+  {
+    "question": "Which Sahabi was given the title 'Al-Farooq'?",
+    "options": ["Abu Bakr (RA)", "Uthman (RA)", "Ali (RA)", "Umar (RA)"],
+    "correct": 3,
+    "explanation": "Umar ibn Al-Khattab (RA) was given the title Al-Farooq (the one who distinguishes truth from falsehood)."
+  },
+  {
+    "question": "Who was the mother of Prophet Isa (AS)?",
+    "options": ["Hajar", "Maryam", "Asiya", "Fatima"],
+    "correct": 1,
+    "explanation": "Maryam (AS) was the pure and chaste mother of Prophet Isa (AS)."
+  },
+  {
+    "question": "Which Prophet's stick turned into a snake by Allah's command?",
+    "options": ["Prophet Musa (AS)", "Prophet Isa (AS)", "Prophet Sulaiman (AS)", "Prophet Ibrahim (AS)"],
+    "correct": 0,
+    "explanation": "Prophet Musa (AS) was given this miracle in front of Pharaoh."
+  },
+  {
+    "question": "Which two Surahs are known as 'Al-Mu'awwidhatain' (the two protectors)?",
+    "options": ["Surah Al-Falaq and Surah Al-Nas", "Surah Al-Ikhlas and Al-Falaq", "Surah Yaseen and Surah Kahf", "Surah Rahman and Surah Waqiah"],
+    "correct": 0,
+    "explanation": "Surah Al-Falaq and Surah Al-Nas are recited for protection from evil."
+  },
+  {
+    "question": "Which Prophet was famous for his ability to control jinn and animals?",
+    "options": ["Prophet Isa (AS)", "Prophet Musa (AS)", "Prophet Sulaiman (AS)", "Prophet Nuh (AS)"],
+    "correct": 2,
+    "explanation": "Prophet Sulaiman (AS) had control over jinn, animals, and the wind by Allah's will."
+  },
+  {
+    "question": "What is the name of the special well located in Masjid Al-Haram?",
+    "options": ["Zamzam", "Badr", "Hudaybiyyah", "Kauthar"],
+    "correct": 0,
+    "explanation": "The Zamzam well was discovered by Hajar (AS), mother of Prophet Ismail (AS)."
+  },
+  {
+    "question": "What is the night called in which the Qur'an was revealed?",
+    "options": ["Laylatul Bara'ah", "Laylatul Qadr", "Laylatul Isra", "Laylatul Hijrah"],
+    "correct": 1,
+    "explanation": "The Qur'an was revealed on Laylatul Qadr, the Night of Power."
+  },
+
+  {
+    "question": "Who was the first person to accept Islam?",
+    "options": ["Abu Bakr (RA)", "Ali (RA)", "Khadijah (RA)", "Umar (RA)"],
+    "correct": 2,
+    "explanation": "Khadijah (RA), the wife of the Prophet (Sallallahu Alaihi Wasallam), was the first to accept Islam."
+  },
+  {
+    "question": "Which Angel brought revelations to Prophet Muhammad (Sallallahu Alaihi Wasallam)?",
+    "options": ["Israfil", "Mikail", "Jibril", "Azrael"],
+    "correct": 2,
+    "explanation": "Angel Jibril (AS) was the one who brought revelations from Allah to the Prophet."
+  },
+  {
+    "question": "Which Surah is known as 'the heart of the Qur'an'?",
+    "options": ["Surah Yaseen", "Surah Al-Baqarah", "Surah Rahman", "Surah Al-Kahf"],
+    "correct": 0,
+    "explanation": "Surah Yaseen is called the heart of the Qur'an due to its great virtues."
+  },
+  {
+    "question": "What is the name of the mountain where the Qur'an was first revealed?",
+    "options": ["Mount Arafat", "Mount Uhud", "Mount Hira", "Mount Sinai"],
+    "correct": 2,
+    "explanation": "The first revelation came to the Prophet (Sallallahu Alaihi Wasallam) in Cave Hira, on Mount Hira."
+  },
+  {
+    "question": "How many chapters (Surahs) are there in the Qur'an?",
+    "options": ["100", "114", "99", "110"],
+    "correct": 1,
+    "explanation": "The Qur'an contains 114 Surahs."
+  },
+  {
+    "question": "Which Prophet had the ability to understand and speak to birds and animals?",
+    "options": ["Prophet Nuh (AS)", "Prophet Sulaiman (AS)", "Prophet Musa (AS)", "Prophet Dawud (AS)"],
+    "correct": 1,
+    "explanation": "Allah blessed Prophet Sulaiman (AS) with the ability to communicate with birds and animals."
+  },
+  {
+    "question": "Which Surah was revealed to defend the honor of Aisha (RA)?",
+    "options": ["Surah An-Nur", "Surah Maryam", "Surah Al-Ahzab", "Surah Al-Kahf"],
+    "correct": 0,
+    "explanation": "Surah An-Nur was revealed to declare the innocence of Aisha (RA)."
+  },
+  {
+    "question": "Which Prophet was known for his beautiful voice in reciting praises to Allah?",
+    "options": ["Prophet Dawud (AS)", "Prophet Isa (AS)", "Prophet Musa (AS)", "Prophet Zakariya (AS)"],
+    "correct": 0,
+    "explanation": "Prophet Dawud (AS) was gifted with a beautiful voice to recite Zabur."
+  },
+  {
+    "question": "What was the name of Prophet Muhammad’s (Sallallahu Alaihi Wasallam) grandfather?",
+    "options": ["Abdullah", "Abu Talib", "Hashim", "Abdul Muttalib"],
+    "correct": 3,
+    "explanation": "Abdul Muttalib was the grandfather of the Prophet (Sallallahu Alaihi Wasallam)."
+  },
+  {
+    "question": "What was the age of the Prophet Muhammad (Sallallahu Alaihi Wasallam) when he received first revelation?",
+    "options": ["30 years", "25 years", "40 years", "35 years"],
+    "correct": 2,
+    "explanation": "The Prophet (Sallallahu Alaihi Wasallam) was 40 years old when the first revelation came."
+  },
+  {
+    "question": "Which Surah should be recited for protection from jealousy and evil eye?",
+    "options": ["Surah Al-Falaq", "Surah Al-Ikhlas", "Surah Al-Nas", "Surah Al-Baqarah"],
+    "correct": 0,
+    "explanation": "Surah Al-Falaq seeks Allah's protection from the evil of jealous people."
+  },
+  {
+    "question": "How many months are there in the Islamic (Hijri) calendar?",
+    "options": ["10", "12", "11", "13"],
+    "correct": 1,
+    "explanation": "The Islamic calendar consists of 12 lunar months."
+  },
+  {
+    "question": "Which Prophet was commanded to sacrifice his son by Allah?",
+    "options": ["Prophet Isa (AS)", "Prophet Ibrahim (AS)", "Prophet Musa (AS)", "Prophet Nuh (AS)"],
+    "correct": 1,
+    "explanation": "Prophet Ibrahim (AS) was tested with the command to sacrifice his son Ismail (AS)."
+  },
+  {
+    "question": "Which Prophet's wife was known for her patience and trust in Allah during years of infertility?",
+    "options": ["Hajar (AS)", "Maryam (AS)", "Sarah (AS)", "Asiya (AS)"],
+    "correct": 2,
+    "explanation": "Sarah (AS), the wife of Prophet Ibrahim (AS), was blessed with a son in her old age."
+  },
+  {
+    "question": "What is the name of the special pond granted to the Prophet (Sallallahu Alaihi Wasallam) in Jannah?",
+    "options": ["Al-Kauthar", "Al-Firdaus", "Al-Araf", "Salsabil"],
+    "correct": 0,
+    "explanation": "Al-Kauthar is a river and pond gifted to the Prophet in Paradise."
+  },
+  {
+    "question": "Which Prophet was tested with severe illness but remained patient?",
+    "options": ["Prophet Ayyub (AS)", "Prophet Dawud (AS)", "Prophet Yusuf (AS)", "Prophet Zakariya (AS)"],
+    "correct": 0,
+    "explanation": "Prophet Ayyub (AS) was known for his extreme patience during long illness."
+  },
+  {
+    "question": "Who led the Muslims in prayer during Prophet Muhammad’s (Sallallahu Alaihi Wasallam) last illness?",
+    "options": ["Umar (RA)", "Uthman (RA)", "Ali (RA)", "Abu Bakr (RA)"],
+    "correct": 3,
+    "explanation": "Abu Bakr (RA) was chosen by the Prophet himself to lead prayers during his illness."
+  },
+  {
+    "question": "Which Prophet interpreted the dreams of the King of Egypt?",
+    "options": ["Prophet Musa (AS)", "Prophet Yusuf (AS)", "Prophet Isa (AS)", "Prophet Nuh (AS)"],
+    "correct": 1,
+    "explanation": "Prophet Yusuf (AS) interpreted the King's dream and was raised to a high position."
+  },
+  {
+    "question": "Which Surah contains the Throne Verse (Ayat-ul-Kursi)?",
+    "options": ["Surah An-Nur", "Surah Al-Baqarah", "Surah Al-Imran", "Surah Al-Mulk"],
+    "correct": 1,
+    "explanation": "Ayat-ul-Kursi is found in Surah Al-Baqarah, verse 255."
+  },
+  {
+    "question": "What is the direction Muslims face during Salah (prayer)?",
+    "options": ["Jerusalem", "Kaaba in Makkah", "Mount Sinai", "Madina"],
+    "correct": 1,
+    "explanation": "Muslims face the Kaaba in Makkah while offering prayers."
+  }
+]

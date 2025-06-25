@@ -1,0 +1,51 @@
+[
+  {
+    "id": "1",
+    "title": "Bismillah - In the Name of Allah",
+    "description": "A beautiful reminder to begin everything with the name of Allah.",
+    "filename": "bismillah_in_the_name_of_allah.jpg",
+    "thumbnail_image": "bismillah_in_the_name_of_allah.jpg"
+  },
+  {
+    "id": "2",
+    "title": "Basmala Intro",
+    "description": "The elegant calligraphy of Basmala - In the Name of Allah, Most Merciful, Most Compassionate.",
+    "filename": "bismillah_intro_basmala.jpg",
+    "thumbnail_image": "bismillah_intro_basmala.jpg"
+  },
+  {
+    "id": "3",
+    "title": "Surah Al-Baqarah 2:186",
+    "description": "A beautiful verse reminding us that Allah is near and responds to our calls.",
+    "filename": "surah_al_baqarah_2_186_i_am_near.jpg",
+    "thumbnail_image": "surah_al_baqarah_2_186_i_am_near.jpg"
+  },
+  {
+    "id": "4",
+    "title": "Surah Al-Imran - Patience Mountains",
+    "description": "An inspiring view reminding of patience and trust in Allah’s plan.",
+    "filename": "surah_al_imran_patience_mountains.jpg",
+    "thumbnail_image": "surah_al_imran_patience_mountains.jpg"
+  },
+  {
+    "id": "5",
+    "title": "Surah Al-Isra 25",
+    "description": "A reminder that Allah knows what is in the hearts.",
+    "filename": "surah_al_isra_25_your_lord_knows_hearts.jpg",
+    "thumbnail_image": "surah_al_isra_25_your_lord_knows_hearts.jpg"
+  },
+  {
+    "id": "6",
+    "title": "Surah Al-Kahf 104",
+    "description": "Warning about those whose efforts are misguided while thinking they are doing good.",
+    "filename": "surah_al_kahf_104_misguided_thinking_good.jpg",
+    "thumbnail_image": "surah_al_kahf_104_misguided_thinking_good.jpg"
+  },
+  {
+    "id": "7",
+    "title": "Surah An-Najm - Endeavor Leaves",
+    "description": "Every person will have what they strive for. Beautiful motivation from Surah An-Najm.",
+    "filename": "surah_an_najm_endeavor_leaves.jpeg",
+    "thumbnail_image": "surah_an_najm_endeavor_leaves.jpeg"
+  }
+]

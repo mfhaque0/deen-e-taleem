@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpapers - Deen-e-Taleem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Custom styles for wallpaper images */
+        .wallpaper-img {
+            width: 100%;
+            height: 250px; /* Fixed height for consistency */
+            object-fit: cover; /* Cover the area, may crop parts */
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .feature-card .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Deen-e-Taleem Logo">
+            </a>
+            <div>
+                 <a class="btn btn-outline-light me-2" href="/">Home</a>
+            <a class="btn btn-outline-light me-2" href="{{ url_for('start_quiz') }}">Quiz</a>
+            <a class="btn btn-outline-light me-2" href="{{ url_for('books') }}">Books</a>
+            <a class="btn btn-outline-light me-2" href="{{ url_for('blog_index') }}">Blog</a>
+            <a class="btn btn-outline-light me-2" href="{{ url_for('wallpapers') }}">Wallpapers</a>
+            <a class="btn btn-outline-light" href="{{ url_for('contact') }}">Contact</a> {# New Contact Link #}
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container mt-5">
+        <h1 class="text-center mb-4">🌄 Islamic Wallpapers</h1>
+        <p class="lead text-center">Beautiful and inspiring Islamic wallpapers for your devices. Download them for free!</p>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% if wallpapers %}
+                {% for wallpaper in wallpapers %}
+                <div class="col">
+                    <div class="card h-100 feature-card">
+                        {# UPDATED LINE BELOW: Pointing to the new thumbnail folder and using thumbnail_image #}
+                        <img src="{{ url_for('static', filename='wallpaper_thumbnails/' + wallpaper.thumbnail_image) }}" class="wallpaper-img" alt="{{ wallpaper.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">{{ wallpaper.title }}</h5>
+                            <p class="card-text">{{ wallpaper.description if wallpaper.description else 'No description available.' }}</p>
+                            
+                            <a href="{{ url_for('content_wait', content_type='wallpaper', filename=wallpaper.filename) }}" class="btn btn-primary mt-auto">Download Wallpaper</a>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p class="lead">No wallpapers available yet. Check back soon!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="bg-dark-green text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-0">&copy; {{ current_year }} Deen-e-Taleem. All rights reserved.</p>
+            <p class="mb-0"><a href="#" class="text-white-50">Privacy Policy</a> | <a href="#" class="text-white-50">Terms of Service</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

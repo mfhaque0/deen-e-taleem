@@ -1,0 +1,471 @@
+/* --- General Body & Font Styling --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f4f8; /* Lighter, softer background */
+    color: #333;
+    margin: 0;
+    line-height: 1.6; /* Improved readability */
+}
+
+/* --- Navbar (UPDATED FOR NEW HEADER STRUCTURE - REDUCED HEIGHT) --- */
+.navbar {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Vertically center items */
+    padding: 15px 40px; /* Reduced vertical padding for a shorter header */
+    background-color: #004d40; /* A deep, elegant green */
+    color: white; /* Default text color for navbar */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    position: sticky; /* Make navbar stick to the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.navbar-brand {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-right: 25px; /* Adjusted space between logo and nav links */
+}
+
+.navbar-brand img {
+    max-height: 60px; /* REDUCED MAX HEIGHT FOR THE LOGO */
+    width: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth hover effect for logo */
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05); /* Slightly enlarge logo on hover */
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flexbox for horizontal nav items */
+    gap: 20px; /* Adjusted space between nav items */
+    flex-grow: 1; /* Allow navigation to grow and take available space */
+    justify-content: flex-start; /* Align nav items to the start after the logo */
+}
+
+.nav-item .nav-link {
+    color: #FFFAF0; /* Floral White for links */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 8px 0; /* Vertical padding for click area */
+    position: relative; /* For underline effect */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Added text-shadow to transition */
+}
+
+.nav-item .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #FFC107; /* Golden underline */
+    transition: width 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+    color: #FFD700; /* Brighter Golden on hover (pure gold) */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Subtle glow on hover */
+}
+
+.nav-item .nav-link:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent background */
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.search-container:focus-within {
+    background-color: rgba(255, 255, 255, 0.25); /* More opaque on focus */
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: white;
+    outline: none; /* Remove default outline */
+    width: 150px; /* Adjust as needed */
+    transition: width 0.3s ease;
+}
+
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.search-container button:hover {
+    color: #FFC107; /* Golden on hover */
+}
+
+
+/* --- Main Content Container (Used on Quiz, Result, Books, Wallpapers, Blog) --- */
+.main-container {
+    max-width: 800px;
+    margin: 40px auto; /* Keep some margin around the main content block */
+    padding: 20px 40px;
+    background: #ffffff; /* Ensures content background is white */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Hero Section (Home Page Intro) --- */
+.hero-section {
+    background: linear-gradient(135deg, #00796b, #004d40); /* Dark green gradient */
+    color: white; /* All text within hero-section will be white */
+    padding: 80px 0;
+    text-align: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    margin-bottom: 30px;
+}
+
+/* Updated color for H1 and lead paragraph inside hero section for a beautiful look */
+.hero-section h1,
+.hero-section p.lead {
+    color: #FFFAF0; /* Floral White - a soft, elegant off-white */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add subtle shadow for depth */
+}
+
+/* --- Feature Cards (Home Page Options) --- */
+.feature-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0; /* Add subtle border */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* More prominent shadow on hover */
+}
+.feature-card h3 {
+    color: #00796b; /* Headings inside feature cards */
+    margin-bottom: 15px;
+    font-weight: 600; /* Slightly bolder */
+}
+.feature-card p {
+    color: #555; /* Paragraphs inside feature cards */
+}
+.icon-large {
+    font-size: 3.5rem; /* Slightly larger icons */
+    color: #00796b;
+    margin-bottom: 20px;
+}
+
+/* --- Typography (General) --- */
+h1, h2 {
+    color: #00332e; /* Darker green for main headings */
+    font-weight: 700;
+}
+p.lead { /* Make this more specific to avoid conflict on home page hero section */
+    font-size: 1.2rem;
+    color: #555; /* Default lead paragraph color */
+    font-weight: 300;
+}
+
+/* --- Buttons --- */
+.btn-action {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff !important;
+    background: linear-gradient(135deg, #FFC107, #FF8F00); /* Warm golden gradient */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.2); /* Subtle shadow for buttons */
+}
+.btn-action:hover {
+    background: linear-gradient(135deg, #FFD700, #FFA000); /* Lighter golden on hover */
+    transform: translateY(-2px); /* Lift button on hover */
+    box-shadow: 0 6px 15px rgba(255, 165, 0, 0.3);
+}
+
+/* --- Quiz Specific Styles --- */
+#quiz-header {
+    margin-bottom: 30px; /* Space between header and question */
+    border-bottom: 1px solid #e0e0e0; /* Subtle line below header */
+    padding-bottom: 20px; /* Padding for the line */
+}
+
+#quiz-counter {
+    font-size: 1.05rem; /* Slightly larger counter */
+    color: #666; /* Slightly lighter color for counter */
+    margin-top: 10px;
+}
+
+h2#question { /* Specific rule for the question text */
+    font-size: 1.7rem; /* Make question stand out more */
+    font-weight: 600; /* Slightly bolder question */
+    margin-top: 25px; /* Space above question */
+    margin-bottom: 30px; /* Space below question */
+    color: #00332e; /* Ensure it uses the darker heading color */
+}
+
+#options-grid {
+    display: grid; /* Use grid for options */
+    gap: 15px; /* Spacing between options */
+    margin-top: 25px; /* Adjust top margin for grid */
+}
+
+.option {
+    display: block; /* Ensure options take full width of grid cell */
+    border: 1px solid #dcdcdc; /* Lighter border for options */
+    padding: 18px 25px; /* Increased padding */
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem; /* Slightly larger font */
+    font-weight: 500; /* Slightly bolder by default */
+    text-align: left; /* Align text to left for better readability */
+    color: #333; /* Option text color */
+    background-color: #ffffff; /* Option background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for options */
+}
+.option:hover {
+    background: #f0f4f8; /* Lighter background on hover */
+    border-color: #00796b;
+    transform: translateY(-2px); /* Lift option on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.option.selected {
+    background-color: #e0f2f1; /* Light teal */
+    border-color: #00796b;
+    color: #004d40;
+    font-weight: 600;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 77, 64, 0.1);
+}
+.option.correct-answer {
+    background-color: #d4edda; /* Light green for correct */
+    border-color: #28a745;
+    color: #155724;
+    font-weight: 700; /* Bolder for correct */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+.option.wrong-answer {
+    background-color: #f8d7da; /* Light red for incorrect */
+    border-color: #dc3545;
+    color: #721c24;
+    font-weight: 700; /* Bolder for wrong */
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+}
+
+/* --- Feedback & Answer States --- */
+#feedback-area {
+    margin-top: 30px; /* More space */
+    padding: 25px 30px; /* More padding */
+    border-top: 1px solid #eee;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #e9ecef; /* Slightly darker feedback area */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03); /* Subtle inner shadow */
+}
+#result h4 {
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    font-size: 1.85rem; /* Slightly larger result text */
+}
+#result.correct { color: #28a745; }
+#result.wrong { color: #dc3545; }
+#explanation {
+    font-style: italic;
+    color: #555;
+    font-size: 1.05rem; /* Slightly larger explanation text */
+    line-height: 1.5;
+}
+
+/* Action buttons below quiz */
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Responsive adjustments (UPDATED) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        padding: 15px 20px;
+        gap: 15px; /* Space between stacked items */
+    }
+
+    .navbar-brand {
+        margin-right: 0; /* Remove margin on small screens when stacked */
+        margin-bottom: 15px; /* Add space below logo when stacked */
+    }
+
+    .navbar-brand img {
+        max-height: 50px; /* Even smaller logo on mobile */
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%; /* Make nav take full width */
+        text-align: center;
+        justify-content: center; /* Center nav items when stacked */
+    }
+
+    .search-container {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-container input {
+        width: calc(100% - 70px); /* Adjust input width for full container */
+    }
+
+    .main-container {
+        margin: 20px;
+        padding: 15px 20px;
+    }
+
+    .hero-section {
+        padding: 50px 0;
+    }
+
+    /* Adjustments for feature cards on small screens */
+    .feature-card {
+        padding: 20px; /* Smaller padding */
+    }
+}
+
+/* General Link Styling (if not a button) */
+a {
+    color: #007bff; /* Bootstrap primary blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Card body text alignment */
+.card-body .card-text {
+    text-align: center; /* Center book/wallpaper descriptions */
+}
+
+/* Specific styling for blog content to fit the design */
+/* These styles are also copied into blog_index.html and blog_post.html's <style> blocks
+   because you are not using base.html currently. If you re-introduce base.html,
+   these specific styles can be removed from individual HTML files and kept only here. */
+
+/* For Blog Index Page */
+.blog-index-container {
+    max-width: 800px; /* Adjust as needed */
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.blog-index-container h1 {
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.post-list { list-style: none; padding: 0; }
+.post-item { background: #e9ecef; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+.post-item h2 { margin-top: 0; color: #333; }
+.post-item a { text-decoration: none; color: #0056b3; font-weight: bold; }
+.post-item a:hover { text-decoration: underline; }
+.post-meta { font-size: 0.9em; color: #666; margin-bottom: 10px; }
+.post-summary { font-size: 1em; line-height: 1.6; }
+.read-more { display: inline-block; margin-top: 10px; padding: 8px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+.read-more:hover { background-color: #0056b3; }
+
+/* For Individual Blog Post Page */
+.blog-content-container {
+    max-width: 800px; /* Adjust as needed for your desired content width */
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.blog-content-container h1 {
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.blog-content-container .post-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.blog-content-container .post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+.blog-content-container .post-content {
+    line-height: 1.8;
+    color: #333;
+}
+.blog-content-container .post-content h2, 
+.blog-content-container .post-content h3, 
+.blog-content-container .post-content h4 {
+    color: #0056b3;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+.blog-content-container .post-content p {
+    margin-bottom: 1em;
+}
+.blog-content-container .post-content ul, 
+.blog-content-container .post-content ol {
+    margin-bottom: 1em;
+    padding-left: 25px;
+}
+.blog-content-container .post-content blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 15px;
+    margin-left: 0;
+    color: #555;
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.blog-content-container .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.blog-content-container .back-link:hover {
+    background-color: #5a6268
