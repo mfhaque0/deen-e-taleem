@@ -8,7 +8,7 @@ It includes Islamic books, Hadiths, wallpapers, blogs, and quizzes – all aimed
 ## 🌐 Live Website
 
 👉 [Visit Live Site](https://deen-e-taleem.onrender.com)  
-(*Replace with your actual Render link if different*)
+
 
 ---
 
