@@ -1,499 +1,1067 @@
 /* --- General Body & Font Styling --- */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f0f4f8; /* Lighter, softer background */
-    color: #333;
+    background-color: #eef2f6; /* Light gray-blue background */
+    color: #334e68; /* Dark blue-gray for text */
     margin: 0;
-    line-height: 1.6; /* Improved readability */
+    line-height: 1.7; /* Improved readability */
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+    /* IMPORTANT: Add padding-top equal to or slightly more than your navbar's height */
+    padding-top: 80px; /* Adjusted padding-top to accommodate fixed navbar */
+    display: flex; /* For sticky footer */
+    flex-direction: column; /* For sticky footer */
+    min-height: 100vh; /* For sticky footer */
 }
 
-/* --- Navbar (UPDATED FOR NEW HEADER STRUCTURE - REDUCED HEIGHT) --- */
+/* Define CSS Variables for colors - easily change your theme here! */
+:root {
+    --header-bg-color: #004d40; /* A deep, elegant green for header */
+    --primary-color: #00796b; /* Darker green, for buttons, links, highlights */
+    --secondary-color: #004d40; /* Even darker green, for gradients/accents */
+    --light-gray-bg: #f8f9fa; /* For sections like hadith, light cards */
+    --text-color: #334e68;
+    --heading-color: #1a202c;
+    --border-color: #eee; /* Light border color */
+    --flash-success: #28a745;
+    --flash-error: #dc3545;
+    --flash-info: #17a2b8;
+    --flash-warning: #ffc107; /* Added warning color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    font-weight: 700; /* Bold headings */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Utility Classes --- */
+.text-dark-green { color: var(--secondary-color); }
+.bg-dark-green { background-color: var(--secondary-color) !important; }
+
+/* --- Navbar --- */
 .navbar {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Vertically center items */
-    padding: 15px 40px; /* Reduced vertical padding for a shorter header */
-    background-color: #004d40; /* A deep, elegant green */
-    color: white; /* Default text color for navbar */
+    background-color: var(--header-bg-color);
+    padding: 15px 20px; /* Comfortable padding */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
-    position: sticky; /* Make navbar stick to the top */
+    position: fixed; /* Make navbar stick to the top */
     top: 0;
     width: 100%;
     z-index: 1000; /* Ensure it stays above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure container fills navbar width */
 }
 
 .navbar-brand {
     flex-shrink: 0; /* Prevent logo from shrinking */
-    margin-right: 25px; /* Adjusted space between logo and nav links */
+    margin-right: 15px; /* Space between logo and nav links */
 }
 
 .navbar-brand img {
-    max-height: 60px; /* REDUCED MAX HEIGHT FOR THE LOGO */
-    width: auto; /* Maintain aspect ratio */
-    transition: transform 0.3s ease; /* Smooth hover effect for logo */
+    max-height: 50px; /* Adjusted max height for the logo */
+    width: auto;
+    transition: transform 0.3s ease;
 }
 
 .navbar-brand img:hover {
-    transform: scale(1.05); /* Slightly enlarge logo on hover */
+    transform: scale(1.05); /* Slight scale on hover */
 }
 
-.navbar-nav {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex; /* Flexbox for horizontal nav items */
-    gap: 20px; /* Adjusted space between nav items */
-    flex-grow: 1; /* Allow navigation to grow and take available space */
-    justify-content: flex-start; /* Align nav items to the start after the logo */
+.navbar-nav .nav-link {
+    color: white; /* Default white text for links */
+    font-weight: 600;
+    margin-right: 15px;
+    position: relative;
+    padding: 8px 0; /* Adjust padding for hover effect */
 }
 
-.nav-item .nav-link {
-    color: #FFFAF0; /* Floral White for links */
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    padding: 8px 0; /* Vertical padding for click area */
-    position: relative; /* For underline effect */
-    transition: color 0.3s ease, text-shadow 0.3s ease; /* Added text-shadow to transition */
-}
-
-.nav-item .nav-link::after {
+.navbar-nav .nav-link::after {
     content: '';
     position: absolute;
-    left: 0;
-    bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #FFC107; /* Golden underline */
-    transition: width 0.3s ease;
+    background-color: #FFC107; /* Gold underline */
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease-in-out;
 }
 
-.nav-item .nav-link:hover {
-    color: #FFD700; /* Brighter Golden on hover (pure gold) */
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Subtle glow on hover */
-}
-
-.nav-item .nav-link:hover::after {
-    width: 100%; /* Expand underline on hover */
-}
-
-.search-container {
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent background */
-    overflow: hidden;
-    transition: background-color 0.3s ease;
-}
-
-.search-container:focus-within {
-    background-color: rgba(255, 255, 255, 0.25); /* More opaque on focus */
-}
-
-.search-container input {
-    border: none;
-    background: transparent;
-    padding: 10px 15px;
-    font-size: 1rem;
-    color: white;
-    outline: none; /* Remove default outline */
-    width: 150px; /* Adjust as needed */
-    transition: width 0.3s ease;
-}
-
-.search-container input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.search-container button {
-    background: none;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-}
-
-.search-container button:hover {
-    color: #FFC107; /* Golden on hover */
-}
-
-
-/* --- Main Content Container (Used on Quiz, Result, Books, Wallpapers, Blog) --- */
-.main-container {
-    max-width: 800px;
-    margin: 40px auto; /* Keep some margin around the main content block */
-    padding: 20px 40px;
-    background: #ffffff; /* Ensures content background is white */
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* --- Hero Section (Home Page Intro) --- */
-.hero-section {
-    background: linear-gradient(135deg, #00796b, #004d40); /* Dark green gradient */
-    color: white; /* All text within hero-section will be white */
-    padding: 80px 0;
-    text-align: center;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    margin-bottom: 30px;
-}
-
-/* Updated color for H1 and lead paragraph inside hero section for a beautiful look */
-.hero-section h1,
-.hero-section p.lead {
-    color: #FFFAF0; /* Floral White - a soft, elegant off-white */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add subtle shadow for depth */
-}
-
-/* --- Feature Cards (Home Page Options) --- */
-.feature-card {
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0; /* Add subtle border */
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    margin-bottom: 20px;
-}
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* More prominent shadow on hover */
-}
-.feature-card h3 {
-    color: #00796b; /* Headings inside feature cards */
-    margin-bottom: 15px;
-    font-weight: 600; /* Slightly bolder */
-}
-.feature-card p {
-    color: #555; /* Paragraphs inside feature cards */
-}
-.icon-large {
-    font-size: 3.5rem; /* Slightly larger icons */
-    color: #00796b;
-    margin-bottom: 20px;
-}
-
-/* --- Typography (General) --- */
-h1, h2 {
-    color: #00332e; /* Darker green for main headings */
-    font-weight: 700;
-}
-p.lead { /* Make this more specific to avoid conflict on home page hero section */
-    font-size: 1.2rem;
-    color: #555; /* Default lead paragraph color */
-    font-weight: 300;
-}
-
-/* --- Buttons --- */
-.btn-action {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #fff !important;
-    background: linear-gradient(135deg, #FFC107, #FF8F00); /* Warm golden gradient */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.2); /* Subtle shadow for buttons */
-}
-.btn-action:hover {
-    background: linear-gradient(135deg, #FFD700, #FFA000); /* Lighter golden on hover */
-    transform: translateY(-2px); /* Lift button on hover */
-    box-shadow: 0 6px 15px rgba(255, 165, 0, 0.3);
-}
-
-/* --- Quiz Specific Styles --- */
-#quiz-header {
-    margin-bottom: 30px; /* Space between header and question */
-    border-bottom: 1px solid #e0e0e0; /* Subtle line below header */
-    padding-bottom: 20px; /* Padding for the line */
-}
-
-#quiz-counter {
-    font-size: 1.05rem; /* Slightly larger counter */
-    color: #666; /* Slightly lighter color for counter */
-    margin-top: 10px;
-}
-
-h2#question { /* Specific rule for the question text */
-    font-size: 1.7rem; /* Make question stand out more */
-    font-weight: 600; /* Slightly bolder question */
-    margin-top: 25px; /* Space above question */
-    margin-bottom: 30px; /* Space below question */
-    color: #00332e; /* Ensure it uses the darker heading color */
-}
-
-#options-grid {
-    display: grid; /* Use grid for options */
-    gap: 15px; /* Spacing between options */
-    margin-top: 25px; /* Adjust top margin for grid */
-}
-
-.option {
-    display: block; /* Ensure options take full width of grid cell */
-    border: 1px solid #dcdcdc; /* Lighter border for options */
-    padding: 18px 25px; /* Increased padding */
+.navbar-nav .nav-link:hover::after {
     width: 100%;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.1rem; /* Slightly larger font */
-    font-weight: 500; /* Slightly bolder by default */
-    text-align: left; /* Align text to left for better readability */
-    color: #333; /* Option text color */
-    background-color: #ffffff; /* Option background color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for options */
-}
-.option:hover {
-    background: #f0f4f8; /* Lighter background on hover */
-    border-color: #00796b;
-    transform: translateY(-2px); /* Lift option on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.option.selected {
-    background-color: #e0f2f1; /* Light teal */
-    border-color: #00796b;
-    color: #004d40;
-    font-weight: 600;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 77, 64, 0.1);
-}
-.option.correct-answer {
-    background-color: #d4edda; /* Light green for correct */
-    border-color: #28a745;
-    color: #155724;
-    font-weight: 700; /* Bolder for correct */
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
-}
-.option.wrong-answer {
-    background-color: #f8d7da; /* Light red for incorrect */
-    border-color: #dc3545;
-    color: #721c24;
-    font-weight: 700; /* Bolder for wrong */
-    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
 }
 
-/* --- Feedback & Answer States --- */
-#feedback-area {
-    margin-top: 30px; /* More space */
-    padding: 25px 30px; /* More padding */
-    border-top: 1px solid #eee;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #e9ecef; /* Slightly darker feedback area */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03); /* Subtle inner shadow */
-}
-#result h4 {
-    margin: 0 0 10px 0;
-    font-weight: 700;
-    font-size: 1.85rem; /* Slightly larger result text */
-}
-#result.correct { color: #28a745; }
-#result.wrong { color: #dc3545; }
-#explanation {
-    font-style: italic;
-    color: #555;
-    font-size: 1.05rem; /* Slightly larger explanation text */
-    line-height: 1.5;
-}
-
-/* Action buttons below quiz */
-.action-buttons {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* Responsive adjustments (UPDATED) */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-        padding: 15px 20px;
-        gap: 15px; /* Space between stacked items */
-    }
-
-    .navbar-brand {
-        margin-right: 0; /* Remove margin on small screens when stacked */
-        margin-bottom: 15px; /* Add space below logo when stacked */
-    }
-
-    .navbar-brand img {
-        max-height: 50px; /* Even smaller logo on mobile */
-    }
-
-    .navbar-nav {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%; /* Make nav take full width */
-        text-align: center;
-        justify-content: center; /* Center nav items when stacked */
-    }
-
-    .search-container {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .search-container input {
-        width: calc(100% - 70px); /* Adjust input width for full container */
-    }
-
-    .main-container {
-        margin: 20px;
-        padding: 15px 20px;
-    }
-
-    .hero-section {
-        padding: 50px 0;
-    }
-
-    /* Adjustments for feature cards on small screens */
-    .feature-card {
-        padding: 20px; /* Smaller padding */
-    }
-}
-
-/* General Link Styling (if not a button) */
-a {
-    color: #007bff; /* Bootstrap primary blue */
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Card body text alignment */
-.card-body .card-text {
-    text-align: center; /* Center book/wallpaper descriptions */
-}
-
-/* Specific styling for blog content to fit the design */
-/* These styles are also copied into blog_index.html and blog_post.html's <style> blocks
-   because you are not using base.html currently. If you re-introduce base.html,
-   these specific styles can be removed from individual HTML files and kept only here. */
-
-/* For Blog Index Page */
-.blog-index-container {
-    max-width: 800px; /* Adjust as needed */
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.blog-index-container h1 {
-    color: #0056b3;
-    text-align: center;
-    margin-bottom: 30px;
-}
-.post-list { list-style: none; padding: 0; }
-.post-item { background: #e9ecef; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
-.post-item h2 { margin-top: 0; color: #333; }
-.post-item a { text-decoration: none; color: #0056b3; font-weight: bold; }
-.post-item a:hover { text-decoration: underline; }
-.post-meta { font-size: 0.9em; color: #666; margin-bottom: 10px; }
-.post-summary { font-size: 1em; line-height: 1.6; }
-.read-more { display: inline-block; margin-top: 10px; padding: 8px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-.read-more:hover { background-color: #0056b3; }
-
-/* For Individual Blog Post Page */
-.blog-content-container {
-    max-width: 800px; /* Adjust as needed for your desired content width */
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.blog-content-container h1 {
-    color: #0056b3;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-.blog-content-container .post-meta {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-.blog-content-container .post-content img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-    border-radius: 5px;
-}
-.blog-content-container .post-content {
-    line-height: 1.8;
-    color: #333;
-}
-.blog-content-container .post-content h2, 
-.blog-content-container .post-content h3, 
-.blog-content-container .post-content h4 {
-    color: #0056b3;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-.blog-content-container .post-content p {
-    margin-bottom: 1em;
-}
-.blog-content-container .post-content ul, 
-.blog-content-container .post-content ol {
-    margin-bottom: 1em;
-    padding-left: 25px;
-}
-.blog-content-container .post-content blockquote {
-    border-left: 4px solid #ccc;
-    padding-left: 15px;
-    margin-left: 0;
-    color: #555;
-    background-color: #f9f9f9;
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-.blog-content-container .back-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #6c757d;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.blog-content-container .back-link:hover {
-    background-color: #5a6268
-}
-
-/* --- Custom Navbar Button Colors (NEW) --- */
+/* Custom Navbar Button Colors */
 .navbar .btn-outline-light {
     color: #FFC107; /* Gold color for the text */
     border-color: #FFC107; /* Gold color for the border */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-/* --- Hover effect for the custom navbar buttons (NEW) --- */
+/* Hover effect for the custom navbar buttons */
 .navbar .btn-outline-light:hover {
-    color: #004d40; /* Dark green text on hover (to match navbar) */
+    color: var(--secondary-color); /* Dark green text on hover (to match navbar) */
     background-color: #FFC107; /* Gold background on hover */
     border-color: #FFC107; /* Ensure border remains gold on hover */
 }
 
-/* --- Style for the active/current page button (NEW) --- */
-.navbar .btn-light {
-    color: #004d40; /* Dark green text */
-    background-color: #FFC107; /* Gold background */
-    border-color: #FFC107; /* Gold border */
+/* Search button with icon */
+.navbar .btn-search-icon {
+    background-color: transparent;
+    border: 1px solid #FFC107;
+    color: #FFC107;
+    padding: 8px 12px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Optional: Make the active button's hover state slightly different (NEW) */
-.navbar .btn-light:hover {
-    background-color: #FFD700; /* A slightly brighter gold on hover */
-    border-color: #FFD700;
+.navbar .btn-search-icon:hover {
+    background-color: #FFC107;
+    color: var(--secondary-color);
+    border-color: #FFC107;
 }
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* --- Main Content Container --- */
+.main-container {
+    flex: 1; /* Allows content to grow and push footer down */
+    padding: 30px 15px; /* Generous padding for content */
+    max-width: 1200px; /* Max width for large screens */
+    margin: 30px auto; /* Center content and add vertical margin */
+    background-color: #fff; /* White background for content area */
+    border-radius: 15px; /* Rounded corners for the main content block */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Soft shadow for depth */
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white; /* Ensure heading is white on dark background */
+}
+
+.hero-section p.lead {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-section .btn-light {
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: 50px; /* Pill-shaped buttons */
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-section .btn-light:hover {
+    background-color: #FFC107; /* Gold on hover */
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Feature Cards (Home Page) --- */
+.feature-card {
+    background-color: var(--light-gray-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    min-height: 280px; /* Ensure consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Space between cards */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card .icon-large {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    display: block; /* Ensure margin applies */
+}
+
+.feature-card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    flex-grow: 1; /* Allows paragraph to take available space */
+}
+
+.feature-card .btn-outline-success {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 600;
+    margin-top: auto; /* Push button to the bottom */
+}
+
+.feature-card .btn-outline-success:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* --- Hadith Section (Home Page) --- */
+.hadith-section {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 40px; /* Keep some margin above/below if needed */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hadith-section .section-title {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.hadith-box {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hadith-box p.lead {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.hadith-box small {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* --- Buttons General --- */
+.btn-action {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block; /* For proper padding and margin */
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); /* Reverse gradient on hover */
+    color: white;
+}
+
+.btn-send {
+    background: linear-gradient(90deg, #ffc107, #ff9800); /* Orange-gold gradient */
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-send:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #ff9800, #ffc107); /* Reverse gradient on hover */
+    color: white;
+}
+
+
+/* --- Books/Wallpapers Cards --- */
+.card {
+    border-radius: 15px;
+    overflow: hidden; /* Ensures image corners are rounded */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    height: 100%; /* Ensure cards in a row have equal height */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.book-cover, .wallpaper-img {
+    width: 100%;
+    height: 220px; /* Fixed height for consistency */
+    object-fit: cover; /* 'cover' for wallpapers, 'contain' for books */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #f0f0f0; /* Light background for images */
+}
+
+.book-cover {
+    object-fit: contain; /* Books usually fit entirely */
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows body to take available space */
+}
+
+.card-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #666;
+    flex-grow: 1; /* Allow description to grow */
+}
+
+.card .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    margin-top: auto; /* Push button to the bottom */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card .btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Specific for Search Form */
+.search-form {
+    margin-bottom: 30px;
+}
+
+/* --- Blog Index Page --- */
+.blog-index-container {
+    padding: 30px;
+}
+
+.blog-index-container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--heading-color);
+}
+
+.list-group-item {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--light-gray-bg);
+}
+
+.list-group-item h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.list-group-item small {
+    color: #888;
+}
+
+/* --- Blog Post Page --- */
+.blog-content-container {
+    padding: 30px;
+}
+
+.blog-content-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--heading-color);
+}
+
+.blog-content-container .post-meta {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.post-content h2, .post-content h3 {
+    color: var(--primary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.post-content p {
+    margin-bottom: 1.2rem;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-content ul, .post-content ol {
+    margin-bottom: 1.2rem;
+    padding-left: 25px;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-content-container blockquote {
+    border-left: 5px solid var(--primary-color);
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+    background-color: #f0f4f8; /* Light background for quotes */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.blog-content-container .back-link {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.blog-content-container .back-link:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* --- Quiz Selection Page --- */
+.quiz-selection-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push button to bottom */
+    min-height: 220px; /* Ensure cards have some height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-selection-card .card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.quiz-selection-card .card-text {
+    flex-grow: 1; /* Allow text to fill space */
+}
+
+/* --- Quiz Play Page --- */
+#quiz-container {
+    padding: 30px;
+    text-align: center;
+}
+
+#quiz-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#quiz-counter {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+#question {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: var(--heading-color);
+}
+
+#options-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack buttons on small screens */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 30px;
+}
+
+.option {
+    background-color: var(--light-gray-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    text-align: left; /* Align text to left */
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 100%; /* Ensure full width within grid cell */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Ensure long words break */
+}
+
+.option:hover {
+    background-color: #e0e6eb; /* Lighter shade on hover */
+    border-color: var(--primary-color);
+}
+
+.option.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.option.correct-answer {
+    background-color: var(--flash-success); /* Green */
+    border-color: var(--flash-success);
+    color: white;
+    font-weight: 600;
+}
+
+.option.wrong-answer {
+    background-color: var(--flash-error); /* Red */
+    border-color: var(--flash-error);
+    color: white;
+    font-weight: 600;
+}
+
+#feedback-area {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--light-gray-bg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#feedback-area #result {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#feedback-area #explanation {
+    font-size: 1rem;
+    color: #555;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+
+/* --- Quiz Result Page --- */
+#quiz-result-container {
+    padding: 30px;
+    text-align: center;
+}
+
+#quiz-result-container h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#quiz-result-container p.lead {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+#quiz-result-container .score-display {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 40px 0;
+}
+
+.d-flex.justify-content-center.gap-3 .btn-action {
+    margin: 0 10px; /* Space out buttons */
+}
+
+
+/* --- Contact Page (Redesigned) --- */
+.contact-info-section {
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+.contact-info-item {
+    padding: 15px;
+}
+
+.contact-info-item .icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.contact-info-item h3 {
+    color: var(--heading-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.contact-info-item p {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.contact-form-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    max-width: 700px; /* Max width for the form */
+    margin: 0 auto; /* Center the form */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Increased padding */
+}
+.contact-form-container .form-label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px; /* Space between label and input */
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.contact-form-container .form-control {
+    border-radius: 8px;
+    border: 1px solid #000; /* Or use #333 for softer black */
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #fff;  /* Optional: ensures input field is visible */
+    color: #000;             /* Optional: for readable text */
+}
+
+.contact-form-container textarea.form-control {
+    min-height: 150px; /* Taller textarea */
+    resize: vertical;
+}
+
+.btn-send {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-send:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+/* Social buttons from old inline style */
+.social-buttons {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 30px; /* Space above social buttons */
+    margin-bottom: 30px; /* Space below social buttons */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.social-buttons a {
+    font-size: 1.3rem;
+    color: white;
+    padding: 10px 20px; /* Increased padding for better touch targets */
+    border-radius: 8px;
+    display: inline-flex; /* Use inline-flex to center icon and text */
+    align-items: center; /* Vertically align icon and text */
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.social-buttons a i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.social-buttons a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.social-buttons .insta {
+    background: #e1306c; /* Instagram brand color */
+}
+.social-buttons .youtube {
+    background: #ff0000; /* YouTube brand color */
+}
+
+
+/* --- Download Wait Page --- */
+.countdown-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--secondary-color); /* Dark green */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 40px auto;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.spinner-border-custom {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color); /* Use primary color for spinner */
+}
+
+/* Flash messages styling */
+.flash-message-container {
+    position: fixed;
+    top: 90px; /* Below the fixed navbar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1050; /* Above most content */
+}
+
+.alert-success {
+    background-color: var(--flash-success);
+    color: white;
+    border-color: var(--flash-success);
+}
+.alert-danger {
+    background-color: var(--flash-error);
+    color: white;
+    border-color: var(--flash-error);
+}
+.alert-info {
+    background-color: var(--flash-info);
+    color: white;
+    border-color: var(--flash-info);
+}
+.alert-warning { /* Added warning style */
+    background-color: var(--flash-warning);
+    color: #333; /* Darker text for warning */
+    border-color: var(--flash-warning);
+}
+.alert-dismissible .btn-close {
+    color: white; /* Ensure close button is visible on colored alerts */
+    filter: invert(100%); /* Make 'x' white */
+}
+/* Adjust close button for warning alert if needed */
+.alert-warning .btn-close {
+    color: #333; /* Darker close button for warning */
+    filter: none;
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) { /* Medium devices and down */
+    .navbar-expand-lg .navbar-collapse {
+        background-color: var(--header-bg-color);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .navbar-nav .nav-link {
+        margin-right: 0;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    .navbar-nav .nav-link::after { /* Hide underline on collapsed menu for cleaner look */
+        display: none;
+    }
+    .navbar .btn-outline-light, .navbar .btn-search-icon { /* Apply to search icon button too */
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0 !important; /* Override me-2 */
+    }
+    .hero-section h1 {
+        font-size: 2.8rem;
+    }
+    .hero-section p.lead {
+        font-size: 1.1rem;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .hadith-box {
+        padding: 25px;
+    }
+    .blog-content-container h1 {
+        font-size: 2rem;
+    }
+    .blog-content-container .post-meta {
+        font-size: 0.9rem;
+    }
+    .post-content {
+        font-size: 1rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-text {
+        font-size: 0.9rem;
+    }
+    #quiz-header h1 {
+        font-size: 2.2rem;
+    }
+    #question {
+        font-size: 1.6rem;
+    }
+    .option {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    .countdown-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) { /* Small devices and down (tablets in portrait, phones) */
+    body {
+        padding-top: 70px; /* Adjust for potentially smaller navbar on smaller screens */
+    }
+    .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand img {
+        max-height: 45px;
+    }
+    .hero-section {
+        padding: 50px 0;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    .hero-section p.lead {
+        font-size: 1rem;
+    }
+    .main-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .feature-card {
+        padding: 20px;
+        min-height: auto; /* Allow height to adjust */
+    }
+    .feature-card .icon-large {
+        font-size: 3rem;
+    }
+    .feature-card h3 {
+        font-size: 1.5rem;
+    }
+    .hadith-section {
+        padding: 30px 0;
+    }
+    .hadith-box {
+        padding: 20px;
+    }
+    .hadith-box p.lead {
+        font-size: 1rem;
+    }
+    .btn-action, .btn-send {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .book-cover, .wallpaper-img {
+        height: 180px; /* Smaller fixed height for mobile */
+    }
+    .blog-index-container, .blog-content-container, #quiz-container, #quiz-result-container, .contact-form-container {
+        padding: 20px;
+    }
+    #quiz-header h1 {
+        font-size: 1.8rem;
+    }
+    #question {
+        font-size: 1.3rem;
+    }
+    .option {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+    }
+    .countdown-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) { /* Extra small devices (phones) */
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+    .hero-section p.lead {
+        font-size: 0.9rem;
+    }
+    .navbar .container {
+        flex-direction: column; /* Stack logo and nav links vertically */
+        align-items: flex-start;
+    }
+    .navbar-brand {
+        margin-bottom: 10px; /* Space below logo when stacked */
+        margin-right: 0;
+    }
+    .navbar-nav {
+        width: 100%; /* Make nav links take full width */
+    }
+    .navbar-nav .nav-link {
+        text-align: center; /* Center text in stacked nav links */
+    }
+    .main-container {
+        margin: 15px auto;
+        padding: 15px;
+    }
+    .btn-action, .btn-send {
+        width: 100%; /* Full width buttons on tiny screens */
+        margin-bottom: 10px; /* Space between stacked buttons */
+    }
+    .d-flex.justify-content-center.gap-3 {
+        flex-direction: column; /* Stack result buttons */
+        gap: 10px !important; /* Ensure gap applies */
+    }
+    .d-flex.justify-content-center.gap-3 .btn-action {
+        margin: 0; /* Remove horizontal margin for stacked buttons */
+    }
+    .quiz-selection-card {
+        margin-bottom: 15px;
+    }
+    #options-grid {
+        gap: 10px;
+    }
+    .contact-form-container {
+        padding: 20px;
+    }
+}
+

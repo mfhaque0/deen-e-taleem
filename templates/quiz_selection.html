@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparing Your Download - Deen-e-Taleem</title>
+    <title>Select Quiz - Deen-e-Taleem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
 
     <!-- Header/Navbar (Consistent across all pages) -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -31,7 +31,7 @@
                         <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('quiz_selection') }}">Quiz</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('quiz_selection') }}">Quiz</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('books') }}">Books</a>
@@ -69,20 +69,27 @@
         {% endwith %}
     </div>
 
-    <div class="container main-container text-center py-5">
-        <h2 class="section-title mb-4">Your Download is Preparing...</h2>
-        <p class="lead text-muted">Your file ({{ filename }}) will begin downloading shortly.</p>
+    <div class="container main-container mt-5 text-center">
+        <h2 class="section-title mb-4">Select a Quiz Category</h2>
+        <p class="lead text-muted mb-5">Choose a quiz to test your Islamic knowledge!</p>
 
-        <div class="countdown-circle mx-auto mb-4">
-            <span id="countdown-timer">5</span>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+            {% if quiz_topics %}
+                {% for quiz_item in quiz_topics %}
+                <div class="col">
+                    <div class="card quiz-selection-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ quiz_item.title }}</h5>
+                            <p class="card-text">Test your knowledge on {{ quiz_item.topic }}. ({{ quiz_item.num_questions }} questions)</p>
+                            <a href="{{ url_for('start_specific_quiz', quiz_id=quiz_item.quiz_id) }}" class="btn btn-action mt-auto">Start Quiz</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center fs-5 text-muted">No quizzes available at the moment. Please check back later!</p>
+            {% endif %}
         </div>
-
-        <p class="mb-4">If your download does not start automatically within <span id="countdown-text">5</span> seconds:</p>
-        
-        <div id="manual-download" style="display:none;">
-            <a id="download-link" href="#" class="btn btn-action">Click here to download manually</a>
-        </div>
-        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back to Home</a>
     </div>
 
     <!-- Footer (Consistent across all pages) -->
@@ -99,58 +106,7 @@
 
     <!-- Bootstrap JS (bundle includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const countdownElement = document.getElementById('countdown-timer');
-            const countdownTextElement = document.getElementById('countdown-text');
-            let timeLeft = 5; // Reduced to 5 seconds for quicker testing/user experience
-
-            // Get filename and content_type from Flask context
-            const downloadFileName = "{{ filename }}";
-            const contentType = "{{ content_type }}";
-
-            // Construct the full download path to our secure Flask route
-            const fullDownloadPath = `/download/${contentType}/${downloadFileName}`;
-
-            function updateCountdown() {
-                countdownElement.innerText = timeLeft;
-                countdownTextElement.innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(timerId);
-                    
-                    // Trigger the download
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = fullDownloadPath;
-                    downloadLink.download = downloadFileName; // Suggest original filename
-                    document.body.appendChild(downloadLink);
-                    downloadLink.click();
-                    document.body.removeChild(downloadLink);
-
-                    // Show manual download link in case auto-download fails
-                    document.getElementById('manual-download').style.display = 'block';
-                    document.getElementById('download-link').href = fullDownloadPath;
-
-                }
-                timeLeft--;
-            }
-
-            const timerId = setInterval(updateCountdown, 1000); // Update every second
-            updateCountdown(); // Call immediately to show initial value
-
-             // Handle flashes/messages from Flask (copied from script.js for consistency)
-            const flashMessages = document.getElementById('flash-messages');
-            if (flashMessages) {
-                // Find all alert elements within the container
-                const alerts = flashMessages.querySelectorAll('.alert');
-                alerts.forEach(alertDiv => {
-                    // Automatically hide each alert after a few seconds
-                    setTimeout(() => {
-                        const bsAlert = bootstrap.Alert.getInstance(alertDiv) || new bootstrap.Alert(alertDiv);
-                        bsAlert.dispose(); // Use Bootstrap's dispose method to remove the alert
-                    }, 5000); // 5 seconds
-                });
-            }
-        });
-    </script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
