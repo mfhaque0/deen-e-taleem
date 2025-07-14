@@ -1,0 +1,1067 @@
+/* --- General Body & Font Styling --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #eef2f6; /* Light gray-blue background */
+    color: #334e68; /* Dark blue-gray for text */
+    margin: 0;
+    line-height: 1.7; /* Improved readability */
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+    /* IMPORTANT: Add padding-top equal to or slightly more than your navbar's height */
+    padding-top: 80px; /* Adjusted padding-top to accommodate fixed navbar */
+    display: flex; /* For sticky footer */
+    flex-direction: column; /* For sticky footer */
+    min-height: 100vh; /* For sticky footer */
+}
+
+/* Define CSS Variables for colors - easily change your theme here! */
+:root {
+    --header-bg-color: #004d40; /* A deep, elegant green for header */
+    --primary-color: #00796b; /* Darker green, for buttons, links, highlights */
+    --secondary-color: #004d40; /* Even darker green, for gradients/accents */
+    --light-gray-bg: #f8f9fa; /* For sections like hadith, light cards */
+    --text-color: #334e68;
+    --heading-color: #1a202c;
+    --border-color: #eee; /* Light border color */
+    --flash-success: #28a745;
+    --flash-error: #dc3545;
+    --flash-info: #17a2b8;
+    --flash-warning: #ffc107; /* Added warning color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    font-weight: 700; /* Bold headings */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Utility Classes --- */
+.text-dark-green { color: var(--secondary-color); }
+.bg-dark-green { background-color: var(--secondary-color) !important; }
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--header-bg-color);
+    padding: 15px 20px; /* Comfortable padding */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    position: fixed; /* Make navbar stick to the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure container fills navbar width */
+}
+
+.navbar-brand {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-right: 15px; /* Space between logo and nav links */
+}
+
+.navbar-brand img {
+    max-height: 50px; /* Adjusted max height for the logo */
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+.navbar-nav .nav-link {
+    color: white; /* Default white text for links */
+    font-weight: 600;
+    margin-right: 15px;
+    position: relative;
+    padding: 8px 0; /* Adjust padding for hover effect */
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #FFC107; /* Gold underline */
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Custom Navbar Button Colors */
+.navbar .btn-outline-light {
+    color: #FFC107; /* Gold color for the text */
+    border-color: #FFC107; /* Gold color for the border */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for the custom navbar buttons */
+.navbar .btn-outline-light:hover {
+    color: var(--secondary-color); /* Dark green text on hover (to match navbar) */
+    background-color: #FFC107; /* Gold background on hover */
+    border-color: #FFC107; /* Ensure border remains gold on hover */
+}
+
+/* Search button with icon */
+.navbar .btn-search-icon {
+    background-color: transparent;
+    border: 1px solid #FFC107;
+    color: #FFC107;
+    padding: 8px 12px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .btn-search-icon:hover {
+    background-color: #FFC107;
+    color: var(--secondary-color);
+    border-color: #FFC107;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* --- Main Content Container --- */
+.main-container {
+    flex: 1; /* Allows content to grow and push footer down */
+    padding: 30px 15px; /* Generous padding for content */
+    max-width: 1200px; /* Max width for large screens */
+    margin: 30px auto; /* Center content and add vertical margin */
+    background-color: #fff; /* White background for content area */
+    border-radius: 15px; /* Rounded corners for the main content block */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Soft shadow for depth */
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white; /* Ensure heading is white on dark background */
+}
+
+.hero-section p.lead {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-section .btn-light {
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: 50px; /* Pill-shaped buttons */
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-section .btn-light:hover {
+    background-color: #FFC107; /* Gold on hover */
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Feature Cards (Home Page) --- */
+.feature-card {
+    background-color: var(--light-gray-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    min-height: 280px; /* Ensure consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Space between cards */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card .icon-large {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    display: block; /* Ensure margin applies */
+}
+
+.feature-card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    flex-grow: 1; /* Allows paragraph to take available space */
+}
+
+.feature-card .btn-outline-success {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 600;
+    margin-top: auto; /* Push button to the bottom */
+}
+
+.feature-card .btn-outline-success:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* --- Hadith Section (Home Page) --- */
+.hadith-section {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 40px; /* Keep some margin above/below if needed */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hadith-section .section-title {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.hadith-box {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hadith-box p.lead {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.hadith-box small {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* --- Buttons General --- */
+.btn-action {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block; /* For proper padding and margin */
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); /* Reverse gradient on hover */
+    color: white;
+}
+
+.btn-send {
+    background: linear-gradient(90deg, #ffc107, #ff9800); /* Orange-gold gradient */
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-send:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #ff9800, #ffc107); /* Reverse gradient on hover */
+    color: white;
+}
+
+
+/* --- Books/Wallpapers Cards --- */
+.card {
+    border-radius: 15px;
+    overflow: hidden; /* Ensures image corners are rounded */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    height: 100%; /* Ensure cards in a row have equal height */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.book-cover, .wallpaper-img {
+    width: 100%;
+    height: 220px; /* Fixed height for consistency */
+    object-fit: cover; /* 'cover' for wallpapers, 'contain' for books */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #f0f0f0; /* Light background for images */
+}
+
+.book-cover {
+    object-fit: contain; /* Books usually fit entirely */
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows body to take available space */
+}
+
+.card-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #666;
+    flex-grow: 1; /* Allow description to grow */
+}
+
+.card .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    margin-top: auto; /* Push button to the bottom */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card .btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Specific for Search Form */
+.search-form {
+    margin-bottom: 30px;
+}
+
+/* --- Blog Index Page --- */
+.blog-index-container {
+    padding: 30px;
+}
+
+.blog-index-container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--heading-color);
+}
+
+.list-group-item {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--light-gray-bg);
+}
+
+.list-group-item h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.list-group-item small {
+    color: #888;
+}
+
+/* --- Blog Post Page --- */
+.blog-content-container {
+    padding: 30px;
+}
+
+.blog-content-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--heading-color);
+}
+
+.blog-content-container .post-meta {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.post-content h2, .post-content h3 {
+    color: var(--primary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.post-content p {
+    margin-bottom: 1.2rem;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-content ul, .post-content ol {
+    margin-bottom: 1.2rem;
+    padding-left: 25px;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-content-container blockquote {
+    border-left: 5px solid var(--primary-color);
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+    background-color: #f0f4f8; /* Light background for quotes */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.blog-content-container .back-link {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.blog-content-container .back-link:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* --- Quiz Selection Page --- */
+.quiz-selection-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push button to bottom */
+    min-height: 220px; /* Ensure cards have some height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-selection-card .card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.quiz-selection-card .card-text {
+    flex-grow: 1; /* Allow text to fill space */
+}
+
+/* --- Quiz Play Page --- */
+#quiz-container {
+    padding: 30px;
+    text-align: center;
+}
+
+#quiz-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#quiz-counter {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+#question {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: var(--heading-color);
+}
+
+#options-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack buttons on small screens */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 30px;
+}
+
+.option {
+    background-color: var(--light-gray-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    text-align: left; /* Align text to left */
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 100%; /* Ensure full width within grid cell */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Ensure long words break */
+}
+
+.option:hover {
+    background-color: #e0e6eb; /* Lighter shade on hover */
+    border-color: var(--primary-color);
+}
+
+.option.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.option.correct-answer {
+    background-color: var(--flash-success); /* Green */
+    border-color: var(--flash-success);
+    color: white;
+    font-weight: 600;
+}
+
+.option.wrong-answer {
+    background-color: var(--flash-error); /* Red */
+    border-color: var(--flash-error);
+    color: white;
+    font-weight: 600;
+}
+
+#feedback-area {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--light-gray-bg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#feedback-area #result {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#feedback-area #explanation {
+    font-size: 1rem;
+    color: #555;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+
+/* --- Quiz Result Page --- */
+#quiz-result-container {
+    padding: 30px;
+    text-align: center;
+}
+
+#quiz-result-container h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#quiz-result-container p.lead {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+#quiz-result-container .score-display {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 40px 0;
+}
+
+.d-flex.justify-content-center.gap-3 .btn-action {
+    margin: 0 10px; /* Space out buttons */
+}
+
+
+/* --- Contact Page (Redesigned) --- */
+.contact-info-section {
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+.contact-info-item {
+    padding: 15px;
+}
+
+.contact-info-item .icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.contact-info-item h3 {
+    color: var(--heading-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.contact-info-item p {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.contact-form-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    max-width: 700px; /* Max width for the form */
+    margin: 0 auto; /* Center the form */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Increased padding */
+}
+.contact-form-container .form-label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px; /* Space between label and input */
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.contact-form-container .form-control {
+    border-radius: 8px;
+    border: 1px solid #000; /* Or use #333 for softer black */
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #fff;  /* Optional: ensures input field is visible */
+    color: #000;             /* Optional: for readable text */
+}
+
+.contact-form-container textarea.form-control {
+    min-height: 150px; /* Taller textarea */
+    resize: vertical;
+}
+
+.btn-send {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-send:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+/* Social buttons from old inline style */
+.social-buttons {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 30px; /* Space above social buttons */
+    margin-bottom: 30px; /* Space below social buttons */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.social-buttons a {
+    font-size: 1.3rem;
+    color: white;
+    padding: 10px 20px; /* Increased padding for better touch targets */
+    border-radius: 8px;
+    display: inline-flex; /* Use inline-flex to center icon and text */
+    align-items: center; /* Vertically align icon and text */
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.social-buttons a i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.social-buttons a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.social-buttons .insta {
+    background: #e1306c; /* Instagram brand color */
+}
+.social-buttons .youtube {
+    background: #ff0000; /* YouTube brand color */
+}
+
+
+/* --- Download Wait Page --- */
+.countdown-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--secondary-color); /* Dark green */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 40px auto;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.spinner-border-custom {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color); /* Use primary color for spinner */
+}
+
+/* Flash messages styling */
+.flash-message-container {
+    position: fixed;
+    top: 90px; /* Below the fixed navbar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1050; /* Above most content */
+}
+
+.alert-success {
+    background-color: var(--flash-success);
+    color: white;
+    border-color: var(--flash-success);
+}
+.alert-danger {
+    background-color: var(--flash-error);
+    color: white;
+    border-color: var(--flash-error);
+}
+.alert-info {
+    background-color: var(--flash-info);
+    color: white;
+    border-color: var(--flash-info);
+}
+.alert-warning { /* Added warning style */
+    background-color: var(--flash-warning);
+    color: #333; /* Darker text for warning */
+    border-color: var(--flash-warning);
+}
+.alert-dismissible .btn-close {
+    color: white; /* Ensure close button is visible on colored alerts */
+    filter: invert(100%); /* Make 'x' white */
+}
+/* Adjust close button for warning alert if needed */
+.alert-warning .btn-close {
+    color: #333; /* Darker close button for warning */
+    filter: none;
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) { /* Medium devices and down */
+    .navbar-expand-lg .navbar-collapse {
+        background-color: var(--header-bg-color);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .navbar-nav .nav-link {
+        margin-right: 0;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    .navbar-nav .nav-link::after { /* Hide underline on collapsed menu for cleaner look */
+        display: none;
+    }
+    .navbar .btn-outline-light, .navbar .btn-search-icon { /* Apply to search icon button too */
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0 !important; /* Override me-2 */
+    }
+    .hero-section h1 {
+        font-size: 2.8rem;
+    }
+    .hero-section p.lead {
+        font-size: 1.1rem;
+    }
+    .feature-card {
+        padding: 25px;
+    }
+    .hadith-box {
+        padding: 25px;
+    }
+    .blog-content-container h1 {
+        font-size: 2rem;
+    }
+    .blog-content-container .post-meta {
+        font-size: 0.9rem;
+    }
+    .post-content {
+        font-size: 1rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-text {
+        font-size: 0.9rem;
+    }
+    #quiz-header h1 {
+        font-size: 2.2rem;
+    }
+    #question {
+        font-size: 1.6rem;
+    }
+    .option {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    .countdown-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) { /* Small devices and down (tablets in portrait, phones) */
+    body {
+        padding-top: 70px; /* Adjust for potentially smaller navbar on smaller screens */
+    }
+    .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand img {
+        max-height: 45px;
+    }
+    .hero-section {
+        padding: 50px 0;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    .hero-section p.lead {
+        font-size: 1rem;
+    }
+    .main-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .feature-card {
+        padding: 20px;
+        min-height: auto; /* Allow height to adjust */
+    }
+    .feature-card .icon-large {
+        font-size: 3rem;
+    }
+    .feature-card h3 {
+        font-size: 1.5rem;
+    }
+    .hadith-section {
+        padding: 30px 0;
+    }
+    .hadith-box {
+        padding: 20px;
+    }
+    .hadith-box p.lead {
+        font-size: 1rem;
+    }
+    .btn-action, .btn-send {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .book-cover, .wallpaper-img {
+        height: 180px; /* Smaller fixed height for mobile */
+    }
+    .blog-index-container, .blog-content-container, #quiz-container, #quiz-result-container, .contact-form-container {
+        padding: 20px;
+    }
+    #quiz-header h1 {
+        font-size: 1.8rem;
+    }
+    #question {
+        font-size: 1.3rem;
+    }
+    .option {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+    }
+    .countdown-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) { /* Extra small devices (phones) */
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+    .hero-section p.lead {
+        font-size: 0.9rem;
+    }
+    .navbar .container {
+        flex-direction: column; /* Stack logo and nav links vertically */
+        align-items: flex-start;
+    }
+    .navbar-brand {
+        margin-bottom: 10px; /* Space below logo when stacked */
+        margin-right: 0;
+    }
+    .navbar-nav {
+        width: 100%; /* Make nav links take full width */
+    }
+    .navbar-nav .nav-link {
+        text-align: center; /* Center text in stacked nav links */
+    }
+    .main-container {
+        margin: 15px auto;
+        padding: 15px;
+    }
+    .btn-action, .btn-send {
+        width: 100%; /* Full width buttons on tiny screens */
+        margin-bottom: 10px; /* Space between stacked buttons */
+    }
+    .d-flex.justify-content-center.gap-3 {
+        flex-direction: column; /* Stack result buttons */
+        gap: 10px !important; /* Ensure gap applies */
+    }
+    .d-flex.justify-content-center.gap-3 .btn-action {
+        margin: 0; /* Remove horizontal margin for stacked buttons */
+    }
+    .quiz-selection-card {
+        margin-bottom: 15px;
+    }
+    #options-grid {
+        gap: 10px;
+    }
+    .contact-form-container {
+        padding: 20px;
+    }
+}
+
