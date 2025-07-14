@@ -92,13 +92,7 @@ Free to use, share, and improve – all for the sake of Allah.
 
 ---
 
-## 🤲 Special Dua
-
-> **"O Allah, accept this effort for Your sake, make it a source of guidance for many, and grant barakah in our time and actions."**
-
----
-
-## ☪️ Developed By
+##  Developed By
 
 **Md Faizanul Haque**  
 🔗 [GitHub Profile](https://github.com/mfhaque0)
