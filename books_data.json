@@ -223,12 +223,11 @@
         "description": "Valuable words and principles for those involved in inviting others to Islam.",
         "cover_image": "words_of_advice_dawah_ibn_baaz.jpg"
     },
-{
-    "title": "Divine Will and Predestination (English)",
-    "filename": "divine_will_and_predestination.pdf",
-    "author": "Shaykh Dr. ‘Umar Sulaymān al-Ashqar",
-    "description": "A concise and insightful explanation on the Islamic belief in al-Qadr (Divine Decree), exploring Allah’s will, knowledge, and decree in light of Qur’an and Sunnah.",
-    "cover_image": "divine_will_and_predestination.webp"
-}
-
+    {
+        "title": "Divine Will and Predestination (English)",
+        "filename": "divine_will_and_predestination.pdf",
+        "author": "Shaykh Dr. ‘Umar Sulaymān al-Ashqar",
+        "description": "A concise and insightful explanation on the Islamic belief in al-Qadr (Divine Decree), exploring Allah’s will, knowledge, and decree in light of Qur’an and Sunnah.",
+        "cover_image": "divine_will_and_predestination.webp"
+    }
 ]
