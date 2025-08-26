@@ -70,16 +70,20 @@
     </div>
 
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <h1>Deen-e-Taleem</h1>
-            <p class="lead">Your ultimate source for authentic Islamic knowledge and resources. Learn, reflect, and grow.</p>
-            <a href="{{ url_for('quiz_selection') }}" class="btn btn-light me-3">Start Quiz Now</a>
+  <!-- Hero Section -->
+<section class="hero-section text-center py-5">
+    <div class="container">
+        <h1>Deen-e-Taleem</h1>
+        <p class="lead">Your ultimate source for authentic Islamic knowledge and resources. Learn, reflect, and grow.</p>
+        
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <a href="{{ url_for('quiz_selection') }}" class="btn btn-light">Start Quiz Now</a>
             <a href="{{ url_for('books') }}" class="btn btn-light">Explore Books</a>
         </div>
-    </section>
-    <!-- End Hero Section -->
+    </div>
+</section>
+<!-- End Hero Section -->
+
 
     <!-- Daily Hadith Section (Moved to top) -->
     <section class="hadith-section py-5">
