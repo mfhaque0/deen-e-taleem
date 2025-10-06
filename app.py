@@ -24,6 +24,9 @@ BOOKS_DATA_FILE = os.path.join(BASE_DIR, 'books_data.json')
 BLOGS_DATA_FILE = os.path.join(BASE_DIR, 'blogs_data.json')
 WALLPAPERS_DATA_FILE = os.path.join(BASE_DIR, 'wallpapers_data.json')
 HADITH_DATA_FILE = os.path.join(BASE_DIR, 'hadith.json')
+# 💡 FIX: ADD THE DUA DATA FILE PATH HERE
+DUA_DATA_FILE = os.path.join(BASE_DIR, 'dua.json')
+
 
 # --- Data Loading Section ---
 # Load all questions from the JSON file once at startup
@@ -341,7 +344,41 @@ def download_file(content_type, filename):
         print(f"Server Error: File not found on disk: {os.path.join(directory, safe_filename)}")
         abort(404, "File not found on server.")
 
+# --- Data Loading (FIXED SECTION) ---
+def load_duas_data():
+    """Loads Dua data from the JSON file."""
+    try:
+        # 💡 FIX APPLIED: Using the defined DUA_DATA_FILE path
+        with open(DUA_DATA_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # Error message uses the defined path
+        print(f"Error: {DUA_DATA_FILE} not found. Please ensure it exists.")
+        return {}
+    except json.JSONDecodeError:
+        print("Error: Could not decode dua.json. Check file format.")
+        return {}
 
+# Load the data once when the app starts
+DUAS_DATA = load_duas_data()
+
+# --- Functions for Routes ---
+def get_duas_by_category(category):
+    """Fetches a list of duas based on the given category key from the loaded data."""
+    # This remains clean and simple, referencing the loaded DUAS_DATA dictionary
+    return DUAS_DATA.get(category, [])
+
+# --- Flask Routes ---
+@app.route('/dua')
+def dua():
+    # Make sure you pass current_year if your footer still needs it
+    return render_template('dua.html', current_year=datetime.now().year) 
+
+@app.route('/dua/<category>')
+def dua_detail(category):
+    # Logic to fetch and display duas based on the category
+    duas = get_duas_by_category(category) 
+    return render_template('dua_detail.html', category=category, duas=duas)
 # --- Blog Routes ---
 @app.route('/blog')
 def blog_index():

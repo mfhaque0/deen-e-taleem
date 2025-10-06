@@ -397,6 +397,23 @@ p {
     border-color: var(--secondary-color);
     transform: translateY(-2px);
 }
+/* Custom styling for the Dua Cards */
+.dua-card {
+    border: 1px solid var(--primary-color, #004d40); /* Match your theme color */
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%; /* Ensures cards in the row are the same height */
+}
+
+.dua-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dua-card .card-title {
+    color: var(--primary-color, #004d40); /* Match your main text color */
+    font-weight: 600;
+}
 
 /* Specific for Search Form */
 .search-form {
