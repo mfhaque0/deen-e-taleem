@@ -28,17 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle flashes/messages from Flask
-    // This listener should be general and run on every page.
+    // ✅ FIX: Flash messages ke automatic dismissal ka logic.
+    // Yeh listener har page par chalega aur Flask se aaye hue messages ko dismiss karega.
     const flashMessagesContainer = document.getElementById('flash-messages');
     if (flashMessagesContainer) {
         // Find all alert elements within the container
         const alerts = flashMessagesContainer.querySelectorAll('.alert');
         alerts.forEach(alertDiv => {
-            // Automatically hide each alert after a few seconds
+            // Automatically hide each alert after a few seconds (5000 milliseconds)
             setTimeout(() => {
+                // Safely dispose of the Bootstrap alert instance
                 const bsAlert = bootstrap.Alert.getInstance(alertDiv) || new bootstrap.Alert(alertDiv);
-                bsAlert.dispose(); // Use Bootstrap's dispose method to remove the alert
+                bsAlert.dispose(); 
             }, 5000); // 5 seconds
         });
     }
@@ -49,12 +50,30 @@ let selectedOption = null; // Stores the index of the currently selected option 
 let correctAnswerIndex = null; // Stores the index of the correct answer for the current question
 let isAnswerSubmitted = false; // Flag to prevent multiple submissions
 
+
+/**
+ * Clears the server-side and client-side flash messages from the container.
+ * This is crucial for fixing the issue of old messages persisting.
+ */
+function clearFlashMessages() {
+    const flashContainer = document.getElementById('flash-messages');
+    if (flashContainer) {
+        // Forcefully clear all content, including any flashed messages from Flask
+        flashContainer.innerHTML = '';
+    }
+}
+
+
 /**
  * Loads a new question from the backend API.
  * Resets the UI and state for the new question.
  */
 function loadQuestion() {
     console.log("Attempting to load new question...");
+    
+    // 🔥 FIX: Clear all persistent messages before loading a new question/segment.
+    clearFlashMessages(); 
+    
     // Reset state for the new question
     selectedOption = null;
     correctAnswerIndex = null;
@@ -128,6 +147,9 @@ function loadQuestion() {
  */
 function selectOption(clickedButton, index) {
     if (isAnswerSubmitted) return; // Prevent selection after submission
+    
+    // Clear any previous "Please select..." warnings when a valid option is clicked
+    clearFlashMessages(); 
 
     // Remove 'selected' class from previously selected option
     const currentSelected = document.querySelector('.option.selected');
@@ -146,7 +168,6 @@ function selectOption(clickedButton, index) {
 /**
  * Handles the submission of the selected answer to the backend.
  * Sends the selected option index to the API and updates UI based on feedback.
- *ß
  */
 function handleSubmit() {
     if (selectedOption === null || isAnswerSubmitted) {

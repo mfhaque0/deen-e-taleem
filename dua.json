@@ -2,44 +2,194 @@
     "morning_evening": [
         {
             "arabic": "بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
-            "translation": "In the Name of Allah, with Whose Name there is protection against every kind of harm in the earth or in the heaven, and He is the All-Hearing and All-Knowing.",
-            "reference": "Tirmidhi, Abu Dawud"
+            "translation": "In the Name of Allah, with Whose Name there is protection against every kind of harm in the earth or in the heaven, and He is the All-Hearing, All-Knowing.",
+            "reference": "Sunan Abi Dawud 5088, Jami` at-Tirmidhi 3388 (Recite 3 times)"
         },
         {
             "arabic": "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",
-            "translation": "O Allah, by Your leave we have reached the morning, and by Your leave we have reached the evening, and by Your leave we live and die, and unto You is the resurrection.",
-            "reference": "Tirmidhi"
+            "translation": "O Allah, by Your leave we have reached the morning, by Your leave we have reached the evening, by Your leave we live and die, and unto You is the resurrection.",
+            "reference": "Jami` at-Tirmidhi 3391"
+        },
+        {
+            "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي",
+            "translation": "O Allah, I ask You for well-being in this world and the Hereafter. O Allah, I ask You for forgiveness and well-being in my religion, my worldly affairs, my family, and my wealth.",
+            "reference": "Sunan Ibn Majah 3871, Abu Dawud 5074"
+        },
+        {
+            "arabic": "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+            "translation": "There is no deity except Allah, alone, without partner. His is the dominion and praise, and He has power over all things.",
+            "reference": "Sahih Muslim 2691 (Recite 10 or 100 times)"
+        },
+        {
+            "arabic": "سُبْحَانَ اللهِ وَبِحَمْدِهِ",
+            "translation": "Glory be to Allah and Praise be to Him.",
+            "reference": "Sahih Muslim 2692 (Recite 100 times)"
+        },
+        {
+            "arabic": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",
+            "translation": "O Ever Living, O Sustainer, by Your Mercy I seek help. Rectify all my affairs, and do not entrust me to myself even for the blink of an eye.",
+            "reference": "Sunan An-Nasa'i 10330"
+        },
+        {
+            "arabic": "سَيِّدُ الاِسْتِغْفَارِ : اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ ...",
+            "translation": "The chief of repentance: O Allah, You are my Lord, there is no deity except You...",
+            "reference": "Sahih al-Bukhari 6306 (Sayed-ul-Istighfar)"
         }
     ],
     "protection": [
         {
             "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
-            "translation": "I seek refuge in the perfect words of Allah from the evil of that which He has created.",
-            "reference": "Sahih Muslim"
+            "translation": "I seek refuge in the perfect words of Allah from the evil of what He has created.",
+            "reference": "Sahih Muslim 2708 (For protection against evil eye, scorpion, etc.)"
         },
         {
             "arabic": "حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
-            "translation": "Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the great Throne.",
-            "reference": "Surah At-Tawbah 9:129 (7 times)"
+            "translation": "Sufficient for me is Allah; there is no deity except Him. On Him I rely, and He is the Lord of the mighty Throne.",
+            "reference": "Quran 9:129 (Recite 7 times for ease of affairs)"
+        },
+        {
+            "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ",
+            "translation": "O Allah, I seek refuge in You from anxiety and grief, from incapacity and laziness, from cowardice and miserliness, and from being overcome by debt and the domination of men.",
+            "reference": "Sahih al-Bukhari 6369"
+        },
+        {
+            "arabic": "اللَّهُمَّ اسْتُرْ عَوْرَاتِي وَآمِنْ رَوْعَاتِي، وَاحْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي وَعَنْ يَمِينِي وَعَنْ شِمَالِي وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي",
+            "translation": "O Allah, conceal my faults, calm my fears, protect me from in front, behind, right, left, and above, and I seek refuge in Your Greatness from being swallowed from beneath.",
+            "reference": "Sunan Ibn Majah 3872"
+        },
+        {
+            "arabic": "قُلْ هُوَ ٱللَّهُ أَحَدٌ... قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ... قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
+            "translation": "Recitation of Surah Al-Ikhlas, Al-Falaq, and An-Nas for protection.",
+            "reference": "Sahih Muslim 814 (Recite 3 times each morning, evening, and before sleep)"
         }
     ],
     "study_success": [
         {
-            "arabic": "رَبِّ زِدْنِي عِلْماً",
+            "arabic": "رَبِّ زِدْنِي عِلْمًا",
             "translation": "My Lord, increase me in knowledge.",
-            "reference": "Surah Taha 20:114"
+            "reference": "Quran 20:114"
         },
         {
             "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا",
             "translation": "O Allah, I ask You for beneficial knowledge, good provision, and accepted deeds.",
-            "reference": "Ibn Majah"
+            "reference": "Sunan Ibn Majah 925"
+        },
+        {
+            "arabic": "اللَّهُمَّ انْفَعْنِي بِمَا عَلَّمْتَنِي وَعَلِّمْنِي مَا يَنْفَعُنِي وَزِدْنِي عِلْمًا",
+            "translation": "O Allah, benefit me with what You have taught me, teach me what will benefit me, and increase me in knowledge.",
+            "reference": "Jami` at-Tirmidhi 3599"
+        }
+    ],
+    "prophets_duas": [
+        {
+            "arabic": "لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+            "translation": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
+            "reference": "Quran 21:87 (Dua of Prophet Yunus عليه السلام)"
+        },
+        {
+            "arabic": "رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ",
+            "translation": "My Lord, grant me from Yourself good offspring. Indeed, You are the Hearer of supplication.",
+            "reference": "Quran 3:38 (Dua of Prophet Zakariyya عليه السلام)"
+        },
+        {
+            "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+            "translation": "Our Lord, grant us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.",
+            "reference": "Quran 2:201 (A comprehensive Dua often recited by the Prophet ﷺ)"
+        },
+        {
+            "arabic": "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَنْ دَخَلَ بَيْتِيَ مُؤْمِنًا",
+            "translation": "My Lord, forgive me and my parents and whoever enters my house a believer.",
+            "reference": "Quran 71:28 (Dua of Prophet Nuh عليه السلام)"
+        },
+        {
+            "arabic": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
+            "translation": "My Lord, grant me authority and join me with the righteous.",
+            "reference": "Quran 26:83 (Dua of Prophet Ibrahim عليه السلام)"
         }
     ],
     "travel": [
         {
             "arabic": "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ",
-            "translation": "Glory be to Him Who has subjected this to us, for we could not have mastered it ourselves. And indeed, to Our Lord we will surely return.",
-            "reference": "Surah Az-Zukhruf 43:13-14"
+            "translation": "Glory be to Him Who has subjected this to us, for we could not have done so ourselves. And surely to our Lord we will return.",
+            "reference": "Quran 43:13-14 (Recite upon mounting a conveyance)"
+        },
+        {
+            "arabic": "اللَّهُمَّ أَنْتَ الصَّاحِبُ فِي السَّفَرِ وَالْخَلِيفَةُ فِي الْأَهْلِ",
+            "translation": "O Allah, You are the Companion on the journey and the Guardian over the family.",
+            "reference": "Sahih Muslim 1342"
+        },
+        {
+            "arabic": "بِسْمِ اللهِ تَوَكَّلْتُ عَلَى اللهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ",
+            "translation": "In the name of Allah, I place my trust in Allah, and there is no power and no strength except with Allah.",
+            "reference": "Jami` at-Tirmidhi 3426 (Recite upon leaving the house)"
+        }
+    ],
+    "sleep_waking": [
+        {
+            "arabic": "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+            "translation": "In Your name, O Allah, I die and I live.",
+            "reference": "Sahih al-Bukhari 6314 (Before sleeping)"
+        },
+        {
+            "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+            "translation": "All praise is for Allah, who gave us life after causing us to die, and unto Him is the resurrection.",
+            "reference": "Sahih al-Bukhari 6312 (Upon waking up)"
+        },
+        {
+            "arabic": "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",
+            "translation": "O Allah, save me from Your punishment on the Day You resurrect Your slaves.",
+            "reference": "Sunan Abi Dawud 5045 (Recite 3 times before sleeping)"
+        }
+    ],
+    "food_drink": [
+        {
+            "arabic": "بِسْمِ اللَّهِ",
+            "translation": "In the name of Allah.",
+            "reference": "Jami` at-Tirmidhi 1858 (Before starting the meal)"
+        },
+        {
+            "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+            "translation": "All praise is for Allah who fed me this and provided it for me without any might nor power from myself.",
+            "reference": "Sunan Abi Dawud 4023 (After finishing the meal)"
+        },
+        {
+            "arabic": "بِسْمِ اللهِ أَوَّلَهُ وَآخِرَهُ",
+            "translation": "In the name of Allah, its beginning and its end.",
+            "reference": "Sunan Abi Dawud 3767 (If you forget Bismillah at the start)"
+        }
+    ],
+    "wudu_salah": [
+        {
+            "arabic": "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+            "translation": "I bear witness that there is no deity except Allah alone, with no partner, and I bear witness that Muhammad is His slave and Messenger.",
+            "reference": "Sahih Muslim 234 (After Wudu)"
+        },
+        {
+            "arabic": "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
+            "translation": "O Allah, make me among those who turn to You in repentance, and make me among those who are purified.",
+            "reference": "Jami` at-Tirmidhi 55 (After Wudu)"
+        },
+        {
+            "arabic": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+            "translation": "Glorified is my Lord, the Great.",
+            "reference": "Sunan Abi Dawud 871 (In Ruku')"
+        },
+        {
+            "arabic": "سُبْحَانَ رَبِّيَ الأَعْلَى",
+            "translation": "Glorified is my Lord, the Most High.",
+            "reference": "Sunan Abi Dawud 871 (In Sujud)"
+        }
+    ],
+    "visiting_sick": [
+        {
+            "arabic": "لَا بَأْسَ طَهُورٌ إِنْ شَاءَ اللَّهُ",
+            "translation": "No harm will come, it is a purification, if Allah wills.",
+            "reference": "Sahih al-Bukhari 3616"
+        },
+        {
+            "arabic": "أَسْأَلُ اللَّهَ الْعَظِيمَ، رَبَّ الْعَرْشِ الْعَظِيمِ، أَنْ يَشْفِيَكَ",
+            "translation": "I ask Allah, the Mighty, the Lord of the Mighty Throne, to cure you.",
+            "reference": "Sunan Abi Dawud 3106 (Recite 7 times)"
         }
     ]
 }

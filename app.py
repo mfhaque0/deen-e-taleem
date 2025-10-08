@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory, abort, flash
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory, abort, flash, get_flashed_messages
 from werkzeug.utils import secure_filename
 import json
 import random
@@ -8,8 +8,6 @@ from datetime import datetime
 
 # Initialize the Flask application
 app = Flask(__name__)
-# IMPORTANT: In a production environment, use a strong, randomly generated secret key
-# and store it securely (e.g., as an environment variable).
 app.secret_key = 'a_very_secret_key_for_deen_e_taleem'
 
 # Define base directory for content files (relative to app.py)
@@ -18,78 +16,73 @@ BLOG_POSTS_DIR = os.path.join(BASE_DIR, 'blog_posts')
 DOWNLOADABLE_FILES_DIR = os.path.join(BASE_DIR, 'downloadable_files')
 STATIC_DIR = os.path.join(BASE_DIR, 'static') # Path for static assets like CSS, JS, images
 
-# Paths to your JSON data files (assuming they are in the root directory)
-QUESTIONS_DATA_FILE = os.path.join(BASE_DIR, 'questions.json')
+# Paths to your JSON data files
+QUESTIONS_DATA_FILE = os.path.join(STATIC_DIR, 'questions.json') 
 BOOKS_DATA_FILE = os.path.join(BASE_DIR, 'books_data.json')
 BLOGS_DATA_FILE = os.path.join(BASE_DIR, 'blogs_data.json')
 WALLPAPERS_DATA_FILE = os.path.join(BASE_DIR, 'wallpapers_data.json')
 HADITH_DATA_FILE = os.path.join(BASE_DIR, 'hadith.json')
-# 💡 FIX: ADD THE DUA DATA FILE PATH HERE
 DUA_DATA_FILE = os.path.join(BASE_DIR, 'dua.json')
 
 
-# --- Data Loading Section ---
-# Load all questions from the JSON file once at startup
+# --- Quiz Configuration ---
+QUESTION_SEGMENT_SIZE = 10 # Number of questions per segment/round
+
+
+# --- Data Loading Section (Global Variables) ---
+# Load all data once at startup
 try:
     with open(QUESTIONS_DATA_FILE, 'r', encoding='utf-8') as f:
         all_questions = json.load(f)
-except FileNotFoundError:
-    print(f"Error: {QUESTIONS_DATA_FILE} not found. Please ensure it exists.")
-    all_questions = []
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {QUESTIONS_DATA_FILE}. Check file for syntax errors.")
+except Exception as e:
+    print(f"Error loading questions.json: {e}")
     all_questions = []
 
-# Load books data from the JSON file once at startup
 try:
     with open(BOOKS_DATA_FILE, 'r', encoding='utf-8') as f:
         all_books = json.load(f)
-except FileNotFoundError:
-    print(f"Error: {BOOKS_DATA_FILE} not found. Please ensure it exists.")
-    all_books = []
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {BOOKS_DATA_FILE}. Check file for syntax errors.")
+except Exception:
     all_books = []
 
-# Load wallpapers data from the JSON file once at startup
 try:
     with open(WALLPAPERS_DATA_FILE, 'r', encoding='utf-8') as f:
         all_wallpapers = json.load(f)
-except FileNotFoundError:
-    print(f"Error: {WALLPAPERS_DATA_FILE} not found. Please ensure it exists.")
-    all_wallpapers = []
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {WALLPAPERS_DATA_FILE}. Check file for syntax errors.")
+except Exception:
     all_wallpapers = []
 
-# Load blogs data from the JSON file once at startup
 try:
     with open(BLOGS_DATA_FILE, 'r', encoding='utf-8') as f:
         all_blog_posts = json.load(f)
-except FileNotFoundError:
-    print(f"Error: {BLOGS_DATA_FILE} not found. Please ensure it exists.")
-    all_blog_posts = []
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {BLOGS_DATA_FILE}. Check file for syntax errors.")
+except Exception:
     all_blog_posts = []
 
-# Load Hadith data from the JSON file once at startup
 try:
     with open(HADITH_DATA_FILE, 'r', encoding='utf-8') as f:
         all_hadith = json.load(f)
-except FileNotFoundError:
-    print(f"Error: {HADITH_DATA_FILE} not found. Please ensure it exists.")
-    all_hadith = []
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from {HADITH_DATA_FILE}. Check file for syntax errors.")
+except Exception:
     all_hadith = []
 
-# Placeholder for quiz topics if you want to expand beyond general quiz
-QUIZ_TOPICS = [
-    {"quiz_id": "general", "title": "General Islamic Knowledge", "topic": "various Islamic topics", "num_questions": min(10, len(all_questions))}
-    # Add more quiz topics here if desired, e.g., "Quran", "Hadith", "Seerah"
-]
+def load_duas_data():
+    """Loads Dua data from the JSON file."""
+    try:
+        with open(DUA_DATA_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return {}
 
+DUAS_DATA = load_duas_data()
+
+# --- Helper Function ---
+def get_questions_for_quiz_id(quiz_id):
+    """Filters all questions by the quiz_id slug and returns the list."""
+    if not all_questions:
+        return []
+    target_level = quiz_id.replace('_', ' ').title()
+    # Returns the full list of question objects for that level
+    return [q for q in all_questions if q.get('level') == target_level]
+
+
+# --- Context Processor ---
 @app.context_processor
 def inject_current_year():
     """Injects the current year into all templates for the footer."""
@@ -101,77 +94,133 @@ def home():
     """Renders the main home page and passes a daily Hadith."""
     daily_hadith = None
     if all_hadith:
-        # Calculate a daily Hadith based on the day of the year for a simple rotation
         day_of_year = datetime.now().timetuple().tm_yday
         hadith_index = (day_of_year - 1) % len(all_hadith)
         daily_hadith = all_hadith[hadith_index]
     return render_template('home.html', daily_hadith=daily_hadith)
 
 @app.route('/quiz-selection')
-@app.route('/quiz') # Point /quiz to quiz selection for clearer flow
+@app.route('/quiz') 
 def quiz_selection():
     """Renders the quiz selection page."""
-    # This route will list available quizzes.
-    # For now, it just offers the general quiz.
-    # If you have more types of quizzes, you would list them here.
-    return render_template('quiz_selection.html', quiz_topics=QUIZ_TOPICS)
+    # Clear any previous quiz session data on selection page visit
+    session.pop('quiz_id', None)
+    # session.pop('full_quiz_questions', None) # REMOVED: This is no longer stored
+    session.pop('shuffled_indices', None)
+    session.pop('current_global_index', None)
+    session.pop('segment_score', None)
+    session.pop('total_score', None)
+    session.pop('current_q_num_in_segment', None)
+    return render_template('quiz_selection.html')
+
+
+# --- START Quiz Segmented Logic ---
 
 @app.route('/start-specific-quiz/<string:quiz_id>')
 def start_specific_quiz(quiz_id):
-    """Initializes a new quiz session for a specific quiz ID."""
-    # For simplicity, we only have one type of quiz ('general') using all_questions.
-    # In a more complex app, you'd load questions based on quiz_id.
+    """Initializes a new quiz session for a specific level."""
+    level_questions = get_questions_for_quiz_id(quiz_id)
     
-    # Ensure all_questions has content before proceeding
-    if not all_questions:
-        flash("No quiz questions available. Please check the 'questions.json' file.", 'error')
-        return redirect(url_for('home'))
-
-    num_questions_to_load = 10 # Default number of questions per quiz
-
-    if quiz_id == 'general':
-        # Shuffle all questions and pick the desired number
-        session['quiz_questions'] = random.sample(all_questions, min(num_questions_to_load, len(all_questions)))
-        session['current_index'] = 0
-        session['score'] = 0
-        # Store quiz_id in session if needed for result page or other logic
-        session['active_quiz_id'] = quiz_id
-        return redirect(url_for('quiz_play'))
-    else:
-        flash("Selected quiz not found.", 'error')
+    if not level_questions:
+        flash(f"No questions found for the '{quiz_id.replace('_', ' ').title()}' level.", 'error')
         return redirect(url_for('quiz_selection'))
+
+    # Store the index of the full question list for the current quiz_id (level)
+    full_indices = list(range(len(level_questions)))
+    random.shuffle(full_indices)
+
+    # Initialize the session for the quiz
+    session['quiz_id'] = quiz_id                 # The level slug (e.g., 'easy')
+    # session['full_quiz_questions'] = level_questions # <--- REMOVED: Too big for cookie
+    session['shuffled_indices'] = full_indices   # The randomized order of all question indices (small)
+    
+    session['current_global_index'] = 0          
+    session['segment_score'] = 0                 
+    session['total_score'] = 0                   
+    session['current_q_num_in_segment'] = 0      
+    
+    flash(f"Starting the {quiz_id.replace('_', ' ').title()} Quiz!", 'success')
+    return redirect(url_for('quiz_play'))
+
+
+@app.route('/start-next-segment')
+def start_next_segment():
+    """Starts the next 10-question segment of the current quiz level."""
+    if 'quiz_id' not in session or 'shuffled_indices' not in session:
+        flash('Quiz session expired or invalid. Please select a quiz again.', 'error')
+        return redirect(url_for('quiz_selection'))
+
+    shuffled_indices = session.get('shuffled_indices', [])
+    current_global_index = session.get('current_global_index', 0)
+    
+    if current_global_index >= len(shuffled_indices):
+        flash("Masha'Allah! You have completed all questions in this level.", 'info')
+        return redirect(url_for('quiz_selection'))
+
+    # Reset segment-specific state
+    session['segment_score'] = 0
+    session['current_q_num_in_segment'] = 0 
+    
+    flash(f"Starting the next {min(QUESTION_SEGMENT_SIZE, len(shuffled_indices) - current_global_index)} questions!", 'success')
+    return redirect(url_for('quiz_play'))
+
 
 @app.route('/quiz/play')
 def quiz_play():
-    """Renders the main quiz interface after a quiz has been initialized."""
-    # Ensure a quiz session exists before rendering the quiz page
-    if 'quiz_questions' not in session or not session['quiz_questions']:
-        # If no active quiz, redirect to selection or home
+    """Renders the main quiz interface."""
+    # Check if the necessary minimal session data exists
+    if 'quiz_id' not in session or 'shuffled_indices' not in session:
         flash("Please select a quiz to start.", 'info')
+        # This redirect is the fix for the reported issue.
         return redirect(url_for('quiz_selection'))
+    
+    if 'current_q_num_in_segment' not in session:
+        session['current_q_num_in_segment'] = 0
+    
+    _ = get_flashed_messages()
+
     return render_template('quiz.html')
+
 
 @app.route('/api/question', methods=['GET'])
 def get_question():
-    """API endpoint to get the current question."""
-    questions = session.get('quiz_questions', [])
-    index = session.get('current_index', 0)
+    """API endpoint to get the current question in the segment."""
+    quiz_id = session.get('quiz_id')
+    shuffled_indices = session.get('shuffled_indices', [])
+    
+    if not quiz_id or not shuffled_indices:
+         return jsonify(error="No active quiz session found."), 400
 
-    if index >= len(questions):
-        # If all questions are answered, indicate quiz finished
+    full_questions = get_questions_for_quiz_id(quiz_id) # <-- FETCH QUESTIONS HERE
+
+    start_index = session.get('current_global_index', 0)
+    current_q_index_in_segment = session.get('current_q_num_in_segment', 0)
+
+    # Calculate the segment
+    segment_end = min(start_index + QUESTION_SEGMENT_SIZE, len(shuffled_indices))
+    current_segment_indices = shuffled_indices[start_index:segment_end]
+
+    if current_q_index_in_segment >= len(current_segment_indices):
         return jsonify({'finished': True})
 
-    question_data = questions[index]
-    # Ensure options are always a list, even if coming from old data
-    options = list(question_data.get('options', []))
+    # Get the index in the FULL list
+    global_question_index = current_segment_indices[current_q_index_in_segment]
     
+    # Retrieve the actual question data from the global list
+    question_data = full_questions[global_question_index]
+
+    # Store necessary info for submit in session
+    session['current_correct_answer_index'] = int(question_data['correct'])
+    session['current_explanation'] = question_data['explanation']
+
     return jsonify({
         'finished': False,
-        'q_num': index + 1,
-        'total': len(questions),
+        'q_num': current_q_index_in_segment + 1,        # 1-based index for display
+        'total': len(current_segment_indices),          # Total questions in this segment
         'question': question_data['question'],
-        'options': options
+        'options': list(question_data.get('options', []))
     })
+
 
 @app.route('/api/submit', methods=['POST'])
 def submit_answer():
@@ -179,43 +228,76 @@ def submit_answer():
     data = request.get_json()
     selected_option = data.get('selected_option')
 
-    questions = session.get('quiz_questions', [])
-    index = session.get('current_index', 0)
+    correct_answer_index = session.get('current_correct_answer_index')
+    explanation = session.get('current_explanation', 'No explanation provided.')
+    
+    if correct_answer_index is None:
+        return jsonify({'error': 'No active question in session.'}), 400
 
-    # Basic validation
-    if index >= len(questions) or selected_option is None:
-        return jsonify({'error': 'Invalid request or quiz finished'}), 400
-
-    question = questions[index]
-    # Ensure correct answer index is an integer for comparison
-    correct_answer_index = int(question['correct'])
     is_correct = (selected_option == correct_answer_index)
 
     if is_correct:
-        session['score'] = session.get('score', 0) + 1
-    
-    # Increment the current_index for the next question
-    session['current_index'] = index + 1
+        session['segment_score'] = session.get('segment_score', 0) + 1
+        session['total_score'] = session.get('total_score', 0) + 1
+
+    session['current_q_num_in_segment'] = session.get('current_q_num_in_segment', 0) + 1
 
     return jsonify({
         'correct': is_correct,
-        'correct_answer_index': correct_answer_index, # Send back the correct index
-        'explanation': question['explanation']
+        'correct_answer_index': correct_answer_index,
+        'explanation': explanation
     })
+
 
 @app.route('/result')
 def result():
-    """Displays the final quiz results."""
-    score = session.get('score', 0)
-    total = len(session.get('quiz_questions', [])) # Use quiz_questions from session for total
+    """Displays the segment quiz results and sets up the next segment."""
+    segment_score = session.get('segment_score', 0)
+    shuffled_indices = session.get('shuffled_indices', [])
+    start_index = session.get('current_global_index', 0)
     
-    # Clear quiz session data after displaying results
-    session.pop('quiz_questions', None)
-    session.pop('current_index', None)
-    session.pop('score', None)
-    session.pop('active_quiz_id', None) # Clear active quiz ID as well
+    segment_total = session.get('current_q_num_in_segment', 0) 
 
-    return render_template('result.html', score=score, total=total)
+    # Update the global index tracking to point to the start of the next segment
+    session['current_global_index'] = start_index + segment_total
+    
+    # Reset temporary session data
+    session.pop('current_q_num_in_segment', None)
+    session.pop('current_correct_answer_index', None)
+    session.pop('current_explanation', None)
+
+    # Determine if there are more questions remaining in the quiz level
+    current_global_index = session.get('current_global_index', 0)
+    total_questions_in_level = len(shuffled_indices)
+    has_more_questions = current_global_index < total_questions_in_level
+    
+    quiz_id = session.get('quiz_id')
+    
+    # Handle end of quiz level
+    if not has_more_questions:
+        total_cumulative_score = session.get('total_score', 0)
+        flash("Masha'Allah! You have completed all segments for this quiz level. Your total score was {}/{}.".format(total_cumulative_score, total_questions_in_level), 'info')
+        
+        # Clear all quiz-related session data
+        session.pop('quiz_id', None)
+        session.pop('shuffled_indices', None)
+        session.pop('current_global_index', None)
+        session.pop('segment_score', None)
+        session.pop('total_score', None)
+        quiz_id = None
+
+    # Pass data to the result page
+    return render_template(
+        'result.html',
+        score=segment_score, 
+        total=segment_total,
+        has_more_questions=has_more_questions,
+        quiz_id=quiz_id,
+        current_year=datetime.now().year
+    )
+
+# --- END Quiz Segmented Logic ---
+
 
 @app.route('/books')
 def books():
@@ -225,13 +307,12 @@ def books():
 
     if search_query:
         for book in all_books:
-            # Check title, author, and description for the search query
             if search_query in book.get('title', '').lower() or \
                search_query in book.get('author', '').lower() or \
                search_query in book.get('description', '').lower():
                 filtered_books.append(book)
     else:
-        filtered_books = all_books # Show all books if no search query
+        filtered_books = all_books
 
     return render_template('books.html', books=filtered_books, query=search_query)
 
@@ -242,11 +323,7 @@ def wallpapers():
 
 @app.route('/content-wait/<content_type>/<path:filename>')
 def content_wait(content_type, filename):
-    """
-    Renders a waiting page before a download, passing content type and filename.
-    Sets a session flag to allow the subsequent direct download.
-    This route is crucial for preventing direct hotlinking/scraping of downloadable files.
-    """
+    """Renders a waiting page before a download."""
     valid_content_types = ['book', 'wallpaper']
     if content_type not in valid_content_types:
         abort(400, "Invalid content type specified for download.")
@@ -259,14 +336,9 @@ def content_wait(content_type, filename):
     elif content_type == 'wallpaper':
         source_data = all_wallpapers
     
-    # Check if the filename exists in our data
     for item in source_data:
-        # For books_data.json, some filenames are full URLs (Google Drive).
-        # We only handle local files for secure_filename and send_from_directory.
-        # For external URLs, we redirect directly.
         if item['filename'] == filename:
             item_found = True
-            # If it's an external URL, bypass the wait page and redirect directly
             if filename.startswith('http://') or filename.startswith('https://'):
                 return redirect(filename)
             break
@@ -274,7 +346,6 @@ def content_wait(content_type, filename):
     if not item_found:
         abort(404, "File not found in our records.")
 
-    # Set a session flag to authorize the actual download
     session['can_download'] = True
     session['download_filename'] = filename
     session['download_content_type'] = content_type
@@ -285,29 +356,20 @@ def content_wait(content_type, filename):
 
 @app.route('/download/<content_type>/<path:filename>')
 def download_file(content_type, filename):
-    """
-    Serves the actual file for download, but only if initiated from the content-wait page
-    and the session flag is set.
-    """
-    # Check if the download was authorized by the content-wait page
+    """Serves the actual file for download."""
     if not session.get('can_download') or \
        session.get('download_filename') != filename or \
        session.get('download_content_type') != content_type:
         flash("Unauthorized download attempt. Please access content through the website.", 'error')
         return redirect(url_for('home'))
 
-    # Clear the session flags immediately after authorization check
     session.pop('can_download', None)
     session.pop('download_filename', None)
     session.pop('download_content_type', None)
 
-    # Sanitize filename to prevent directory traversal attacks
     safe_filename = secure_filename(filename)
-    
-    # Determine the correct directory based on content_type
-    directory = os.path.join(DOWNLOADABLE_FILES_DIR, content_type + 's') # 'books' or 'wallpapers'
+    directory = os.path.join(DOWNLOADABLE_FILES_DIR, content_type + 's')
 
-    # Optional: Further validate filename against expected types/patterns
     item_found_in_data = False
     source_data_list = []
     expected_extensions = []
@@ -319,11 +381,9 @@ def download_file(content_type, filename):
         source_data_list = all_wallpapers
         expected_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
     else:
-        # This should ideally be caught earlier by content_wait, but as a safeguard
         abort(400, "Invalid content type for download.")
 
     for item in source_data_list:
-        # Check if the filename from the request matches an allowed filename in our data
         if item['filename'].lower() == safe_filename.lower():
             item_found_in_data = True
             break
@@ -331,66 +391,42 @@ def download_file(content_type, filename):
     if not item_found_in_data:
         abort(404, "Requested file not found in database or not authorized.")
 
-    # Check file extension for extra security
     file_ext = os.path.splitext(safe_filename)[1].lower()
     if file_ext not in expected_extensions:
         abort(400, "Invalid file type extension.")
 
-    # Serve the file securely
     try:
         return send_from_directory(directory, safe_filename, as_attachment=True)
     except FileNotFoundError:
-        # Log this error as it indicates a discrepancy between data and actual files
         print(f"Server Error: File not found on disk: {os.path.join(directory, safe_filename)}")
         abort(404, "File not found on server.")
 
-# --- Data Loading (FIXED SECTION) ---
-def load_duas_data():
-    """Loads Dua data from the JSON file."""
-    try:
-        # 💡 FIX APPLIED: Using the defined DUA_DATA_FILE path
-        with open(DUA_DATA_FILE, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        # Error message uses the defined path
-        print(f"Error: {DUA_DATA_FILE} not found. Please ensure it exists.")
-        return {}
-    except json.JSONDecodeError:
-        print("Error: Could not decode dua.json. Check file format.")
-        return {}
-
-# Load the data once when the app starts
-DUAS_DATA = load_duas_data()
-
-# --- Functions for Routes ---
+# --- Dua Logic and Routes ---
 def get_duas_by_category(category):
     """Fetches a list of duas based on the given category key from the loaded data."""
-    # This remains clean and simple, referencing the loaded DUAS_DATA dictionary
     return DUAS_DATA.get(category, [])
 
-# --- Flask Routes ---
 @app.route('/dua')
 def dua():
-    # Make sure you pass current_year if your footer still needs it
-    return render_template('dua.html', current_year=datetime.now().year) 
+    """Renders the main dua category selection page."""
+    return render_template('dua.html', categories=DUAS_DATA.keys(), current_year=datetime.now().year) 
 
 @app.route('/dua/<category>')
 def dua_detail(category):
-    # Logic to fetch and display duas based on the category
+    """Renders the page showing all duas for a specific category."""
     duas = get_duas_by_category(category) 
     return render_template('dua_detail.html', category=category, duas=duas)
+
 # --- Blog Routes ---
 @app.route('/blog')
 def blog_index():
     """Renders the blog index page, listing all blog posts."""
-    # Sort posts by date in reverse chronological order (newest first)
     sorted_posts = sorted(all_blog_posts, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'), reverse=True)
     return render_template('blog_index.html', posts=sorted_posts)
 
 @app.route('/blog/<string:post_id>')
 def blog_post(post_id):
     """Renders a single blog post."""
-    # Find the post by its ID
     post = next((p for p in all_blog_posts if p['id'] == post_id), None)
     if post is None:
         abort(404, description="Blog post not found.")
@@ -400,12 +436,10 @@ def blog_post(post_id):
     try:
         with open(content_file_path, 'r', encoding='utf-8') as f:
             markdown_content = f.read()
-            # Convert Markdown content to HTML for rendering
             html_content = markdown.markdown(markdown_content)
         return render_template('blog_post.html', post=post, content=html_content)
     except FileNotFoundError:
         print(f"Error: Content file not found for post ID {post_id}: {content_file_path}")
-        # Abort with a 500 error if the content file itself is missing
         abort(500, description="Blog post content file not found on server.")
     except Exception as e:
         print(f"Error reading or processing Markdown for post ID {post_id}: {e}")
@@ -421,8 +455,6 @@ def contact():
         subject = request.form.get('subject')
         message = request.form.get('message')
 
-        # In a real application, you would send an email, save to DB, etc.
-        # For this example, we'll just print to console and flash a message.
         print(f"--- NEW CONTACT FORM SUBMISSION ---\nName: {name}\nEmail: {email}\nSubject: {subject}\nMessage: {message}\n-----------------------------------")
         
         flash('Thank you for your message! We will get back to you soon, In Sha Allah.', 'success')
@@ -432,16 +464,10 @@ def contact():
 
 # --- Main entry point for running the Flask app ---
 if __name__ == '__main__':
-    # Ensure necessary directories exist at startup for file storage and static assets
     os.makedirs(BLOG_POSTS_DIR, exist_ok=True)
     os.makedirs(os.path.join(DOWNLOADABLE_FILES_DIR, 'books'), exist_ok=True)
     os.makedirs(os.path.join(DOWNLOADABLE_FILES_DIR, 'wallpapers'), exist_ok=True)
-    # The 'static' directory and its sub-directories (like 'book_covers', 'wallpaper_thumbnails')
-    # should be managed by you, ensuring images are placed there.
     os.makedirs(os.path.join(STATIC_DIR, 'book_covers'), exist_ok=True)
     os.makedirs(os.path.join(STATIC_DIR, 'wallpaper_thumbnails'), exist_ok=True)
     
-    # Run the Flask app in debug mode.
-    # debug=True allows automatic reloading on code changes and provides a debugger.
-    # host='0.0.0.0' makes the app accessible from outside the container/localhost.
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
