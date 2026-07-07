@@ -229,5 +229,183 @@
         "author": "Shaykh Dr. ‘Umar Sulaymān al-Ashqar",
         "description": "A concise and insightful explanation on the Islamic belief in al-Qadr (Divine Decree), exploring Allah’s will, knowledge, and decree in light of Qur’an and Sunnah.",
         "cover_image": "divine_will_and_predestination.webp"
+    },
+    
+    {
+        "title": "Death (English)",
+        "filename": "087Death.pdf",
+        "author": "Shaikh Ali Hasan Ali Abdul Hamid",
+        "description": "A reminder about death, the grave, and preparation for the Hereafter according to the Qur'an and Sunnah.",
+        "cover_image": "death.jpg"
+    },
+    {
+        "title": "44 Ways to Manhood (English)",
+        "filename": "44 Ways to Manhood.pdf",
+        "author": "Taymullah Abdur-Rahman",
+        "description": "A practical guide for developing Islamic character, responsibility, and manhood.",
+        "cover_image": "44_ways_to_manhood.jpg"
+    },
+    {
+        "title": "A Commentary on the Depiction of Muhammad ﷺ (English)",
+        "filename": "A Commentary on the Depiction of Muhammad - Tirmidhi.pdf",
+        "author": "Imam At-Tirmidhi",
+        "description": "A commentary on the physical appearance and noble character of the Prophet Muhammad ﷺ.",
+        "cover_image": "depiction_of_muhammad.jpg"
+    },
+
+    {
+        "title": "Ali ibn Abi Talib (Volume 1) (English)",
+        "filename": "ali-ibn-abi-talib-r-volume-1 (1).pdf",
+        "author": "Dr. Ali Muhammad As-Sallabi",
+        "description": "The first volume of the biography of Ali ibn Abi Talib رضي الله عنه.",
+        "cover_image": "ali_ibn_abi_talib_vol1.jpg"
+    },
+    {
+        "title": "Ali ibn Abi Talib (Volume 2) (English)",
+        "filename": "ali-ibn-abi-talib-r-volume-2 (1).pdf",
+        "author": "Dr. Ali Muhammad As-Sallabi",
+        "description": "The second volume of the biography of Ali ibn Abi Talib رضي الله عنه.",
+        "cover_image": "ali_ibn_abi_talib_vol2.jpg"
+    },
+    {
+        "title": "Complete Easy Dictionary Of The Quran (English)",
+        "filename": "Complete Easy Dictionary Of The Quran.pdf",
+        "author": "Sheikh Abdul kareem Parekh",
+        "description": "A helpful dictionary explaining Qur'anic vocabulary and terminology.",
+        "cover_image": "complete_easy_dictionary_of_the_quran.jpg"
+    },
+    {
+        "title": "Explanation of Sahih Muslim: The Book of Heart Softeners Explained (English)",
+        "filename": "Explanation_of_Sahih_Muslim_The_Book_of_Heart_Softeners_Explained.pdf",
+        "author": "Ash-Sheikh Abdul Aziz Ar-Rajhi",
+        "description": "An explanation of the heart-softening narrations found in Sahih Muslim.",
+        "cover_image": "heart_softeners_explained.jpg"
+    },
+    {
+        "title": "Purification of the Heart (English)",
+        "filename": "Hamza-Yusuf_Purification-of-the-Heart-complete.pdf",
+        "author": "Shaykh Hamza Yusuf",
+        "description": "A study of spiritual diseases of the heart and their remedies.",
+        "cover_image": "purification_of_the_heart.jpg"
+    },
+    {
+        "title": "Interactions between Muslims and Non-Muslims (English)",
+        "filename": "Interactions between Muslims and Non-Muslims -mobile.pdf",
+        "author": "Unknown",
+        "description": "An Islamic discussion on relations between Muslims and non-Muslims.",
+        "cover_image": "interactions_between_muslims_and_non_muslims.jpg"
+    },
+    {
+        "title": "One Hundred Pieces Of Advice (English)",
+        "filename": "One Hundred Pieces Of Advice - Ibn Qayyim.pdf",
+        "author": "Imam Ibn al-Qayyim",
+        "description": "A collection of beneficial Islamic advice and wisdom.",
+        "cover_image": "one_hundred_pieces_of_advice.jpg"
+    },
+    {
+        "title": "Patience & Gratitude (English)",
+        "filename": "Patience & Gratitude _ Kalamullah.Com - Patience_and_Gratitude.pdf",
+        "author": "Imam Ibn al-Qayyim",
+        "description": "A classic work discussing the virtues of patience and gratitude.",
+        "cover_image": "patience_and_gratitude.jpg"
+    },
+    {
+        "title": "Scientific Truths in The Qur'an (English)",
+        "filename": "Scientific_Truths_in_The_Qur'an.pdf",
+        "author": "The Qur'an Project",
+        "description": "An exploration of scientific signs mentioned in the Qur'an.",
+        "cover_image": "scientific_truths_in_the_quran.jpg"
+    },
+    {
+        "title": "Short Biography of The Prophet ﷺ & His Ten Companions (English)",
+        "filename": "Short_Bio_of_The_Prophet_ﷺ_&_His_Ten_Companions_‘Abdul_Ghani_al.pdf",
+        "author": "Abdul Ghani Al-Maqdisi",
+        "description": "A concise biography of the Prophet ﷺ and the ten companions promised Paradise.",
+        "cover_image": "short_bio_prophet_and_ten_companions.jpg"
+    },
+    {
+        "title": "Smoking, Intoxicants, & Narcotics (English)",
+        "filename": "SMOKING,INTOXICANTS,_&_NARCOTIC_by_MUḤAMMAD_MUṢṬAFĀ_AL_JIBĀLY_.pdf",
+        "author": "Muhammad Mustafa Al-Jibaly",
+        "description": "An Islamic analysis of smoking, intoxicants, and narcotics.",
+        "cover_image": "smoking_intoxicants_and_narcotics.jpg"
+    },
+
+    {
+        "title": "Teaching Children Tawheed (English)",
+        "filename": "Teaching Children Tawheed.pdf",
+        "author": "Muhammad bin Abdu-Wahhaab",
+        "description": "A guide to teaching Islamic monotheism to children.",
+        "cover_image": "teaching_children_tawheed.jpg"
+    },
+    {
+        "title": "The 14 Quranic Readings (English)",
+        "filename": "The_14_Quranic_Readings_.pdf",
+        "author": "Waleed Almeneese",
+        "description": "An introduction to the fourteen Qur'anic readings and their significance.",
+        "cover_image": "the_14_quranic_readings.jpg"
+    },
+    {
+        "title": "The Biography Of Muawiyah Ibn Sufiyan (English)",
+        "filename": "The Biography Of Muawiyah Ibn Sufiyan.pdf",
+        "author": "Maulvi Abdul Aziz",
+        "description": "A biography of Muawiyah ibn Abi Sufyan رضي الله عنه.",
+        "cover_image": "muawiyah_ibn_sufiyan.jpg"
+    },
+    {
+        "title": "The Biography of Uthman Ibn Affan (Dhun-Noorayn) (English)",
+        "filename": "The-Biography-of-Uthman-Ibn-Affan-R-Dhun-Noorayn (1).pdf",
+        "author": "Dr. Ali Muhammad As-Sallabi",
+        "description": "A detailed biography of Uthman ibn Affan رضي الله عنه.",
+        "cover_image": "uthman_ibn_affan_dhun_noorayn.jpg"
+    },
+    {
+        "title": "The Messiah Isa Son Of Maryam: The Complete Truth (English)",
+        "filename": "The Messiah Isa Son Of Maryam The Complete Truth.pdf",
+        "author": "Dr. Ali Mohammad Al-Sallabi",
+        "description": "An Islamic perspective on Prophet Isa عليه السلام based on authentic sources.",
+        "cover_image": "isa_son_of_maryam.jpg"
+    },
+    {
+        "title": "The Perfect Names of Allah (English)",
+        "filename": "The Perfect Names of Allah by Umar ashqar.pdf",
+        "author": "Dr. Umar Sulaiman Al-Ashqar",
+        "description": "A study of Allah's beautiful names and attributes.",
+        "cover_image": "perfect_names_of_allah.jpg"
+    },
+    {
+        "title": "The Reasons Behind Victory and Defeat in Islamic History (English)",
+        "filename": "The reasons behind Victory and Defeat in Islamic History (1).pdf",
+        "author": "Sheikh Bishr ibn Fahad al-Bishr",
+        "description": "An analysis of success and failure in Islamic history through Qur'anic principles.",
+        "cover_image": "victory_and_defeat_in_islamic_history.jpg"
+    },
+    {
+        "title": "The Spiritual Journey To Allah & His Messenger (English)",
+        "filename": "The_Spiritual_Journey_To_Allah_&_His_Messenger_by_Ibn_al_Qayyim.pdf",
+        "author": "Imam Ibn al-Qayyim",
+        "description": "A profound work on drawing closer to Allah and His Messenger ﷺ.",
+        "cover_image": "spiritual_journey_to_allah.jpg"
+    },
+    {
+        "title": "Weeping from the Fear of Allah (English)",
+        "filename": "Weeping from the fear of Allah - Sh. Husayn al-‘Awaayishah.pdf",
+        "author": "Shaykh Husayn al-Awaayishah",
+        "description": "A reminder about humility and weeping out of fear of Allah.",
+        "cover_image": "weeping_from_the_fear_of_allah.jpg"
+    },
+    {
+        "title": "Wives of the Prophet ﷺ (English)",
+        "filename": "wives_of_the_prophet.pdf",
+        "author": "Muhammad Fathi Mus'ad",
+        "description": "Biographies and lessons from the Mothers of the Believers.",
+        "cover_image": "wives_of_the_prophet.jpg"
+    },
+    {
+        "title": "Words of Love, Fear and Hope (English)",
+        "filename": "words-of-love-fear-and-hope.pdf",
+        "author": "Imam Ibn al-Qayyim",
+        "description": "A spiritual work discussing love, fear, and hope in Allah.",
+        "cover_image": "words_of_love_fear_and_hope.jpg"
     }
 ]

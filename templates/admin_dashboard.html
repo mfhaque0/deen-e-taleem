@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Admin Dashboard</h2>
+        <p class="text-muted">Manage books, blogs, questions, wallpapers, and Quran verses.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_logout') }}" class="btn btn-secondary">Logout</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card card-body shadow-sm">
+            <h4>Books</h4>
+            <p class="mb-3">Manage book metadata, cover images, uploads, and external links.</p>
+            <a href="{{ url_for('admin_books') }}" class="btn btn-action">Manage Books</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body shadow-sm">
+            <h4>Blogs</h4>
+            <p class="mb-3">Add, edit, and delete blog posts and their content files.</p>
+            <a href="{{ url_for('admin_blogs') }}" class="btn btn-action">Manage Blogs</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body shadow-sm">
+            <h4>Questions</h4>
+            <p class="mb-3">Add, edit, or remove quiz questions by level.</p>
+            <a href="{{ url_for('admin_questions') }}" class="btn btn-action">Manage Questions</a>
+        </div>
+    </div>
+</div>
+<div class="row g-4 mt-3">
+    <div class="col-md-4">
+        <div class="card card-body shadow-sm">
+            <h4>Wallpapers</h4>
+            <p class="mb-3">Manage wallpapers and thumbnail images.</p>
+            <a href="{{ url_for('admin_wallpapers') }}" class="btn btn-action">Manage Wallpapers</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body shadow-sm">
+            <h4>Quran Verses</h4>
+            <p class="mb-3">Add, edit, and download beautiful Quran verse cards.</p>
+            <a href="{{ url_for('admin_quran') }}" class="btn btn-action">Manage Quran Verses</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="stat-card p-4 shadow-sm rounded">
+            <h5>Total Books</h5>
+            <p class="display-6 fw-bold">{{ total_books }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card p-4 shadow-sm rounded">
+            <h5>Total Blogs</h5>
+            <p class="display-6 fw-bold">{{ total_blogs }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card p-4 shadow-sm rounded">
+            <h5>Total Questions</h5>
+            <p class="display-6 fw-bold">{{ total_questions }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

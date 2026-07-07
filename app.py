@@ -1,20 +1,26 @@
 import os
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory, abort, flash, get_flashed_messages
+from io import BytesIO
+from html import escape
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory, abort, flash, get_flashed_messages, make_response
 from werkzeug.utils import secure_filename
 import json
 import random
 import markdown
 from datetime import datetime
+from functools import wraps
 
 # Initialize the Flask application
 app = Flask(__name__)
 app.secret_key = 'a_very_secret_key_for_deen_e_taleem'
+
+ADMIN_PASSWORD = 'Slimelayer@1029'
 
 # Define base directory for content files (relative to app.py)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BLOG_POSTS_DIR = os.path.join(BASE_DIR, 'blog_posts')
 DOWNLOADABLE_FILES_DIR = os.path.join(BASE_DIR, 'downloadable_files')
 STATIC_DIR = os.path.join(BASE_DIR, 'static') # Path for static assets like CSS, JS, images
+QURAN_VERSES_FILE = os.path.join(BASE_DIR, 'quran_verses.json')
 
 # Paths to your JSON data files
 QUESTIONS_DATA_FILE = os.path.join(STATIC_DIR, 'questions.json') 
@@ -62,6 +68,12 @@ try:
 except Exception:
     all_hadith = []
 
+try:
+    with open(QURAN_VERSES_FILE, 'r', encoding='utf-8') as f:
+        all_quran_verses = json.load(f)
+except Exception:
+    all_quran_verses = []
+
 def load_duas_data():
     """Loads Dua data from the JSON file."""
     try:
@@ -72,7 +84,124 @@ def load_duas_data():
 
 DUAS_DATA = load_duas_data()
 
-# --- Helper Function ---
+# --- Helper Functions ---
+
+def save_json_file(path, data):
+    """Save JSON data back to a file."""
+    try:
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Error saving {path}: {e}")
+
+
+def get_quran_verse(verse_id):
+    return next((v for v in all_quran_verses if str(v.get('id')) == str(verse_id)), None)
+
+
+def _wrap_svg_lines(text, max_chars=40):
+    words = text.split()
+    lines = []
+    current_line = ''
+    for word in words:
+        if len(current_line) + len(word) + 1 > max_chars and current_line:
+            lines.append(current_line.strip())
+            current_line = word + ' '
+        else:
+            current_line += word + ' '
+    if current_line:
+        lines.append(current_line.strip())
+    return lines
+
+
+def create_quran_svg(verse):
+    title = escape(verse.get('reference', 'Quran Verse'))
+    arabic = escape(verse.get('arabic', ''))
+    transliteration = escape(verse.get('transliteration', ''))
+    translation = escape(verse.get('translation', ''))
+    translation_ref = escape(verse.get('translation_reference', ''))
+
+    arabic_lines = _wrap_svg_lines(arabic, max_chars=22)
+    transliteration_lines = _wrap_svg_lines(transliteration, max_chars=48)
+    translation_lines = _wrap_svg_lines(translation, max_chars=50)
+
+    svg_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<svg width="1200" height="1500" viewBox="0 0 1200 1500" xmlns="http://www.w3.org/2000/svg">',
+        '<defs>',
+        '  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">',
+        '    <stop offset="0%" stop-color="#0a3f32"/>',
+        '    <stop offset="100%" stop-color="#1f7c5c"/>',
+        '  </linearGradient>',
+        '  <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">',
+        '    <stop offset="0%" stop-color="#ffffff"/>',
+        '    <stop offset="100%" stop-color="#f3faf7"/>',
+        '  </linearGradient>',
+        '  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">',
+        '    <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.12"/>',
+        '  </filter>',
+        '</defs>',
+        '<rect width="1200" height="1500" rx="55" fill="url(#bgGradient)"/>',
+        '<rect x="70" y="90" width="1060" height="1280" rx="45" fill="url(#cardGradient)" filter="url(#softShadow)"/>',
+        '<g opacity="0.13">',
+        '  <circle cx="220" cy="170" r="90" fill="#ffffff"/>',
+        '  <circle cx="980" cy="200" r="65" fill="#ffffff"/>',
+        '  <circle cx="930" cy="350" r="35" fill="#ffffff"/>',
+        '</g>',
+        '<text x="600" y="165" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="46" font-weight="700" fill="#0d4f35">' + title + '</text>',
+        '<text x="600" y="205" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="22" fill="#2f6b56">' + translation_ref + '</text>',
+        '<g transform="translate(120, 260)">',
+    ]
+
+    y_offset = 0
+    svg_lines.append('  <rect x="0" y="0" width="960" height="560" rx="38" fill="#f5fbf7" stroke="#cde6d7" stroke-width="1.5"/>')
+    svg_lines.append('  <line x1="40" y1="80" x2="920" y2="80" stroke="#81b89d" stroke-width="2" opacity="0.35"/>')
+    svg_lines.append('  <text x="880" y="58" text-anchor="end" font-family="Scheherazade, serif" font-size="58" fill="#11412c" direction="rtl">')
+
+    for idx, line in enumerate(arabic_lines):
+        y = 120 + idx * 82
+        svg_lines.append('    <tspan x="880" dy="' + str(0 if idx == 0 else 82) + '">' + line + '</tspan>')
+
+    svg_lines.append('  </text>')
+    y_offset = 620
+    svg_lines.append('  <line x1="40" y1="' + str(y_offset - 20) + '" x2="920" y2="' + str(y_offset - 20) + '" stroke="#0d6e56" stroke-width="1.5" opacity="0.25"/>')
+    svg_lines.append('  <text x="40" y="' + str(y_offset + 40) + '" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#0d4f35">Transliteration</text>')
+
+    line_y = y_offset + 80
+    for line in transliteration_lines:
+        svg_lines.append('  <text x="40" y="' + str(line_y) + '" font-family="Poppins, Arial, sans-serif" font-size="24" fill="#2f6b56">' + line + '</text>')
+        line_y += 36
+
+    y_offset = line_y + 24
+    svg_lines.append('  <text x="40" y="' + str(y_offset) + '" font-family="Poppins, Arial, sans-serif" font-size="26" fill="#0d4f35">Translation</text>')
+    y_offset += 40
+    for line in translation_lines:
+        svg_lines.append('  <text x="40" y="' + str(y_offset) + '" font-family="Poppins, Arial, sans-serif" font-size="24" fill="#2f6b56">' + line + '</text>')
+        y_offset += 36
+
+    svg_lines.append('  <text x="40" y="' + str(y_offset + 40) + '" font-family="Poppins, Arial, sans-serif" font-size="20" fill="#5f7d6c">Downloaded from Deen-e-Taleem</text>')
+    svg_lines.append('  <text x="40" y="' + str(y_offset + 72) + '" font-family="Poppins, Arial, sans-serif" font-size="18" fill="#8a9a8b">Share with family, friends, and loved ones.</text>')
+    svg_lines.append('</g>')
+    svg_lines.append('</svg>')
+
+    return '\n'.join(svg_lines)
+
+
+def is_allowed_book_file(filename):
+    """Allow only PDF uploads for books."""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
+
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            flash('Please log in to access the admin panel.', 'error')
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def get_questions_for_quiz_id(quiz_id):
     """Filters all questions by the quiz_id slug and returns the list."""
     if not all_questions:
@@ -98,6 +227,312 @@ def home():
         hadith_index = (day_of_year - 1) % len(all_hadith)
         daily_hadith = all_hadith[hadith_index]
     return render_template('home.html', daily_hadith=daily_hadith)
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    """Renders the admin login page and handles authentication."""
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        if password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            flash('Successfully logged in to the admin panel.', 'success')
+            return redirect(url_for('admin_dashboard'))
+        flash('Incorrect admin password.', 'error')
+
+    return render_template('admin_login.html')
+
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    flash('Logged out of admin panel.', 'success')
+    return redirect(url_for('admin_login'))
+
+
+@app.route('/admin')
+@admin_required
+def admin_dashboard():
+    """Renders the admin dashboard."""
+    return render_template(
+        'admin_dashboard.html',
+        total_books=len(all_books),
+        total_blogs=len(all_blog_posts),
+        total_questions=len(all_questions),
+        total_wallpapers=len(all_wallpapers),
+        total_quran_verses=len(all_quran_verses)
+    )
+
+
+@app.route('/admin/books', methods=['GET', 'POST'])
+@admin_required
+def admin_books():
+    """Manage books from the admin panel."""
+    if request.method == 'POST':
+        title = request.form.get('title', '').strip()
+        author = request.form.get('author', '').strip()
+        description = request.form.get('description', '').strip()
+        external_link = request.form.get('external_link', '').strip()
+        cover_name = request.form.get('cover_name', '').strip()
+
+        pdf_file = request.files.get('pdf_file')
+        cover_file = request.files.get('cover_file')
+
+        if not title or not author:
+            flash('Title and author are required for a book.', 'error')
+            return redirect(url_for('admin_books'))
+
+        filename = None
+        if pdf_file and pdf_file.filename:
+            if not is_allowed_book_file(pdf_file.filename):
+                flash('Only PDF files are allowed for books.', 'error')
+                return redirect(url_for('admin_books'))
+            filename = secure_filename(pdf_file.filename)
+            pdf_file.save(os.path.join(DOWNLOADABLE_FILES_DIR, 'books', filename))
+        elif external_link:
+            filename = external_link
+        else:
+            flash('Please provide either a PDF upload or an external download link.', 'error')
+            return redirect(url_for('admin_books'))
+
+        cover_image = ''
+        if cover_file and cover_file.filename:
+            cover_image = secure_filename(cover_file.filename)
+            cover_file.save(os.path.join(STATIC_DIR, 'book_covers', cover_image))
+        elif cover_name:
+            cover_image = cover_name
+
+        new_book = {
+            'title': title,
+            'filename': filename,
+            'author': author,
+            'description': description,
+            'cover_image': cover_image
+        }
+        all_books.append(new_book)
+        save_json_file(BOOKS_DATA_FILE, all_books)
+        flash('Book added successfully.', 'success')
+        return redirect(url_for('admin_books'))
+
+    return render_template('admin_books.html', books=all_books)
+
+
+@app.route('/admin/books/edit/<int:index>', methods=['GET', 'POST'])
+@admin_required
+def admin_edit_book(index):
+    if index < 0 or index >= len(all_books):
+        abort(404)
+    book = all_books[index]
+
+    if request.method == 'POST':
+        title = request.form.get('title', '').strip()
+        author = request.form.get('author', '').strip()
+        description = request.form.get('description', '').strip()
+        external_link = request.form.get('external_link', '').strip()
+        cover_name = request.form.get('cover_name', '').strip()
+
+        pdf_file = request.files.get('pdf_file')
+        cover_file = request.files.get('cover_file')
+
+        if title:
+            book['title'] = title
+        if author:
+            book['author'] = author
+        book['description'] = description
+
+        if pdf_file and pdf_file.filename:
+            if not is_allowed_book_file(pdf_file.filename):
+                flash('Only PDF files are allowed for books.', 'error')
+                return redirect(url_for('admin_edit_book', index=index))
+            filename = secure_filename(pdf_file.filename)
+            pdf_file.save(os.path.join(DOWNLOADABLE_FILES_DIR, 'books', filename))
+            book['filename'] = filename
+        elif external_link:
+            book['filename'] = external_link
+
+        if cover_file and cover_file.filename:
+            cover_image = secure_filename(cover_file.filename)
+            cover_file.save(os.path.join(STATIC_DIR, 'book_covers', cover_image))
+            book['cover_image'] = cover_image
+        elif cover_name:
+            book['cover_image'] = cover_name
+
+        save_json_file(BOOKS_DATA_FILE, all_books)
+        flash('Book updated successfully.', 'success')
+        return redirect(url_for('admin_books'))
+
+    return render_template('admin_book_edit.html', book=book, index=index)
+
+
+@app.route('/admin/books/delete/<int:index>', methods=['POST'])
+@admin_required
+def admin_delete_book(index):
+    if index < 0 or index >= len(all_books):
+        abort(404)
+    deleted_book = all_books.pop(index)
+    save_json_file(BOOKS_DATA_FILE, all_books)
+    flash(f'Book "{deleted_book.get("title", "Untitled")}" deleted successfully.', 'success')
+    return redirect(url_for('admin_books'))
+
+
+@app.route('/admin/blogs')
+@admin_required
+def admin_blogs():
+    return render_template('admin_blogs.html', posts=all_blog_posts)
+
+
+@app.route('/admin/blogs/new', methods=['GET', 'POST'])
+@admin_required
+def admin_new_blog():
+    if request.method == 'POST':
+        title = request.form.get('title', '').strip()
+        author = request.form.get('author', '').strip()
+        date = request.form.get('date', '').strip()
+        summary = request.form.get('summary', '').strip()
+        content = request.form.get('content', '').strip()
+
+        if not title or not author or not date or not summary or not content:
+            flash('All blog fields are required.', 'error')
+            return redirect(url_for('admin_new_blog'))
+
+        new_id = str(max([int(p['id']) for p in all_blog_posts] + [0]) + 1)
+        safe_filename = secure_filename(title.lower().replace(' ', '_'))
+        content_file = f'{safe_filename}_{new_id}.md'
+
+        with open(os.path.join(BLOG_POSTS_DIR, content_file), 'w', encoding='utf-8') as f:
+            f.write(content)
+
+        new_post = {
+            'id': new_id,
+            'title': title,
+            'author': author,
+            'date': date,
+            'summary': summary,
+            'content_file': content_file
+        }
+        all_blog_posts.append(new_post)
+        save_json_file(BLOGS_DATA_FILE, all_blog_posts)
+        flash('Blog post created successfully.', 'success')
+        return redirect(url_for('admin_blogs'))
+
+    return render_template('admin_blog_edit.html', post=None)
+
+
+@app.route('/admin/blogs/edit/<string:post_id>', methods=['GET', 'POST'])
+@admin_required
+def admin_edit_blog(post_id):
+    post = next((p for p in all_blog_posts if p['id'] == post_id), None)
+    if post is None:
+        abort(404)
+
+    content_file_path = os.path.join(BLOG_POSTS_DIR, post['content_file'])
+    content_text = ''
+    try:
+        with open(content_file_path, 'r', encoding='utf-8') as f:
+            content_text = f.read()
+    except FileNotFoundError:
+        content_text = ''
+
+    if request.method == 'POST':
+        post['title'] = request.form.get('title', '').strip()
+        post['author'] = request.form.get('author', '').strip()
+        post['date'] = request.form.get('date', '').strip()
+        post['summary'] = request.form.get('summary', '').strip()
+        content = request.form.get('content', '').strip()
+
+        with open(content_file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+
+        save_json_file(BLOGS_DATA_FILE, all_blog_posts)
+        flash('Blog post updated successfully.', 'success')
+        return redirect(url_for('admin_blogs'))
+
+    return render_template('admin_blog_edit.html', post=post, content=content_text)
+
+
+@app.route('/admin/blogs/delete/<string:post_id>', methods=['POST'])
+@admin_required
+def admin_delete_blog(post_id):
+    post = next((p for p in all_blog_posts if p['id'] == post_id), None)
+    if post is None:
+        abort(404)
+
+    if post.get('content_file'):
+        try:
+            os.remove(os.path.join(BLOG_POSTS_DIR, post['content_file']))
+        except OSError:
+            pass
+
+    all_blog_posts[:] = [p for p in all_blog_posts if p['id'] != post_id]
+    save_json_file(BLOGS_DATA_FILE, all_blog_posts)
+    flash('Blog post deleted successfully.', 'success')
+    return redirect(url_for('admin_blogs'))
+
+
+@app.route('/admin/questions')
+@admin_required
+def admin_questions():
+    return render_template('admin_questions.html', questions=all_questions)
+
+
+@app.route('/admin/questions/new', methods=['GET', 'POST'])
+@admin_required
+def admin_new_question():
+    if request.method == 'POST':
+        question = request.form.get('question', '').strip()
+        options = [request.form.get(f'option_{i}', '').strip() for i in range(4)]
+        correct = request.form.get('correct', '').strip()
+        explanation = request.form.get('explanation', '').strip()
+        level = request.form.get('level', '').strip()
+
+        if not question or not all(options) or correct == '' or not explanation or not level:
+            flash('All question fields are required.', 'error')
+            return redirect(url_for('admin_new_question'))
+
+        all_questions.append({
+            'question': question,
+            'options': options,
+            'correct': int(correct),
+            'explanation': explanation,
+            'level': level
+        })
+        save_json_file(QUESTIONS_DATA_FILE, all_questions)
+        flash('Question added successfully.', 'success')
+        return redirect(url_for('admin_questions'))
+
+    return render_template('admin_question_edit.html', question=None, index=None)
+
+
+@app.route('/admin/questions/edit/<int:index>', methods=['GET', 'POST'])
+@admin_required
+def admin_edit_question(index):
+    if index < 0 or index >= len(all_questions):
+        abort(404)
+    question = all_questions[index]
+
+    if request.method == 'POST':
+        question['question'] = request.form.get('question', '').strip()
+        question['options'] = [request.form.get(f'option_{i}', '').strip() for i in range(4)]
+        question['correct'] = int(request.form.get('correct', '0'))
+        question['explanation'] = request.form.get('explanation', '').strip()
+        question['level'] = request.form.get('level', '').strip()
+
+        save_json_file(QUESTIONS_DATA_FILE, all_questions)
+        flash('Question updated successfully.', 'success')
+        return redirect(url_for('admin_questions'))
+
+    return render_template('admin_question_edit.html', question=question, index=index)
+
+
+@app.route('/admin/questions/delete/<int:index>', methods=['POST'])
+@admin_required
+def admin_delete_question(index):
+    if index < 0 or index >= len(all_questions):
+        abort(404)
+    deleted_question = all_questions.pop(index)
+    save_json_file(QUESTIONS_DATA_FILE, all_questions)
+    flash('Question deleted successfully.', 'success')
+    return redirect(url_for('admin_questions'))
+
 
 @app.route('/quiz-selection')
 @app.route('/quiz') 
@@ -321,6 +756,180 @@ def wallpapers():
     """Renders the wallpapers page with data."""
     return render_template('wallpapers.html', wallpapers=all_wallpapers)
 
+
+@app.route('/quran')
+def quran():
+    """Renders a page with Quran verses."""
+    return render_template('quran.html', verses=all_quran_verses)
+
+
+@app.route('/download/quran/<string:verse_id>')
+def download_quran_verse(verse_id):
+    verse = get_quran_verse(verse_id)
+    if not verse:
+        abort(404)
+
+    svg = create_quran_svg(verse)
+    response = make_response(svg)
+    response.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
+    response.headers['Content-Disposition'] = f'attachment; filename=quran_verse_{verse_id}.svg'
+    return response
+
+
+@app.route('/admin/wallpapers', methods=['GET', 'POST'])
+@admin_required
+def admin_wallpapers():
+    if request.method == 'POST':
+        title = request.form.get('title', '').strip()
+        description = request.form.get('description', '').strip()
+        image_file = request.files.get('image_file')
+        thumbnail_file = request.files.get('thumbnail_file')
+        thumbnail_name = request.form.get('thumbnail_name', '').strip()
+
+        if not title or not description:
+            flash('Title and description are required.', 'error')
+            return redirect(url_for('admin_wallpapers'))
+        if not image_file or not image_file.filename:
+            flash('Wallpaper image file is required.', 'error')
+            return redirect(url_for('admin_wallpapers'))
+
+        image_filename = secure_filename(image_file.filename)
+        image_file.save(os.path.join(DOWNLOADABLE_FILES_DIR, 'wallpapers', image_filename))
+
+        thumbnail_image = ''
+        if thumbnail_file and thumbnail_file.filename:
+            thumbnail_image = secure_filename(thumbnail_file.filename)
+            thumbnail_file.save(os.path.join(STATIC_DIR, 'wallpaper_thumbnails', thumbnail_image))
+        elif thumbnail_name:
+            thumbnail_image = thumbnail_name
+
+        new_id = str(max([int(item['id']) for item in all_wallpapers] + [0]) + 1)
+        all_wallpapers.append({
+            'id': new_id,
+            'title': title,
+            'description': description,
+            'filename': image_filename,
+            'thumbnail_image': thumbnail_image or image_filename
+        })
+        save_json_file(WALLPAPERS_DATA_FILE, all_wallpapers)
+        flash('Wallpaper added successfully.', 'success')
+        return redirect(url_for('admin_wallpapers'))
+
+    return render_template('admin_wallpapers.html', wallpapers=all_wallpapers)
+
+
+@app.route('/admin/wallpapers/edit/<int:index>', methods=['GET', 'POST'])
+@admin_required
+def admin_edit_wallpaper(index):
+    if index < 0 or index >= len(all_wallpapers):
+        abort(404)
+    wallpaper = all_wallpapers[index]
+
+    if request.method == 'POST':
+        wallpaper['title'] = request.form.get('title', '').strip() or wallpaper['title']
+        wallpaper['description'] = request.form.get('description', '').strip() or wallpaper['description']
+
+        image_file = request.files.get('image_file')
+        thumbnail_file = request.files.get('thumbnail_file')
+        thumbnail_name = request.form.get('thumbnail_name', '').strip()
+
+        if image_file and image_file.filename:
+            image_filename = secure_filename(image_file.filename)
+            image_file.save(os.path.join(DOWNLOADABLE_FILES_DIR, 'wallpapers', image_filename))
+            wallpaper['filename'] = image_filename
+
+        if thumbnail_file and thumbnail_file.filename:
+            thumbnail_image = secure_filename(thumbnail_file.filename)
+            thumbnail_file.save(os.path.join(STATIC_DIR, 'wallpaper_thumbnails', thumbnail_image))
+            wallpaper['thumbnail_image'] = thumbnail_image
+        elif thumbnail_name:
+            wallpaper['thumbnail_image'] = thumbnail_name
+
+        save_json_file(WALLPAPERS_DATA_FILE, all_wallpapers)
+        flash('Wallpaper updated successfully.', 'success')
+        return redirect(url_for('admin_wallpapers'))
+
+    return render_template('admin_wallpaper_edit.html', wallpaper=wallpaper, index=index)
+
+
+@app.route('/admin/wallpapers/delete/<int:index>', methods=['POST'])
+@admin_required
+def admin_delete_wallpaper(index):
+    if index < 0 or index >= len(all_wallpapers):
+        abort(404)
+    deleted = all_wallpapers.pop(index)
+    save_json_file(WALLPAPERS_DATA_FILE, all_wallpapers)
+    flash(f"Wallpaper '{deleted.get('title', 'Untitled')}' deleted successfully.", 'success')
+    return redirect(url_for('admin_wallpapers'))
+
+
+@app.route('/admin/quran')
+@admin_required
+def admin_quran():
+    return render_template('admin_quran.html', verses=all_quran_verses)
+
+
+@app.route('/admin/quran/new', methods=['GET', 'POST'])
+@admin_required
+def admin_new_quran():
+    if request.method == 'POST':
+        reference = request.form.get('reference', '').strip()
+        transliteration = request.form.get('transliteration', '').strip()
+        translation = request.form.get('translation', '').strip()
+        translation_reference = request.form.get('translation_reference', '').strip()
+        arabic = request.form.get('arabic', '').strip()
+
+        if not reference or not arabic or not translation or not translation_reference:
+            flash('Reference, Arabic, translation, and translation reference are required.', 'error')
+            return redirect(url_for('admin_new_quran'))
+
+        new_id = str(max([int(v['id']) for v in all_quran_verses] + [0]) + 1)
+        all_quran_verses.append({
+            'id': new_id,
+            'reference': reference,
+            'arabic': arabic,
+            'transliteration': transliteration,
+            'translation': translation,
+            'translation_reference': translation_reference
+        })
+        save_json_file(QURAN_VERSES_FILE, all_quran_verses)
+        flash('Quran verse added successfully.', 'success')
+        return redirect(url_for('admin_quran'))
+
+    return render_template('admin_quran_edit.html', verse=None)
+
+
+@app.route('/admin/quran/edit/<string:verse_id>', methods=['GET', 'POST'])
+@admin_required
+def admin_edit_quran(verse_id):
+    verse = get_quran_verse(verse_id)
+    if verse is None:
+        abort(404)
+
+    if request.method == 'POST':
+        verse['reference'] = request.form.get('reference', '').strip() or verse['reference']
+        verse['arabic'] = request.form.get('arabic', '').strip() or verse['arabic']
+        verse['transliteration'] = request.form.get('transliteration', '').strip() or verse['transliteration']
+        verse['translation'] = request.form.get('translation', '').strip() or verse['translation']
+        verse['translation_reference'] = request.form.get('translation_reference', '').strip() or verse.get('translation_reference', '')
+        save_json_file(QURAN_VERSES_FILE, all_quran_verses)
+        flash('Quran verse updated successfully.', 'success')
+        return redirect(url_for('admin_quran'))
+
+    return render_template('admin_quran_edit.html', verse=verse)
+
+
+@app.route('/admin/quran/delete/<string:verse_id>', methods=['POST'])
+@admin_required
+def admin_delete_quran(verse_id):
+    verse = get_quran_verse(verse_id)
+    if verse is None:
+        abort(404)
+    all_quran_verses[:] = [v for v in all_quran_verses if str(v.get('id')) != str(verse_id)]
+    save_json_file(QURAN_VERSES_FILE, all_quran_verses)
+    flash('Quran verse deleted successfully.', 'success')
+    return redirect(url_for('admin_quran'))
+
 @app.route('/content-wait/<content_type>/<path:filename>')
 def content_wait(content_type, filename):
     """Renders a waiting page before a download."""
@@ -367,7 +976,7 @@ def download_file(content_type, filename):
     session.pop('download_filename', None)
     session.pop('download_content_type', None)
 
-    safe_filename = secure_filename(filename)
+    filename = os.path.basename(filename)
     directory = os.path.join(DOWNLOADABLE_FILES_DIR, content_type + 's')
 
     item_found_in_data = False
@@ -384,21 +993,21 @@ def download_file(content_type, filename):
         abort(400, "Invalid content type for download.")
 
     for item in source_data_list:
-        if item['filename'].lower() == safe_filename.lower():
+        if item['filename'].lower() == filename.lower():
             item_found_in_data = True
             break
-    
+
     if not item_found_in_data:
         abort(404, "Requested file not found in database or not authorized.")
 
-    file_ext = os.path.splitext(safe_filename)[1].lower()
+    file_ext = os.path.splitext(filename)[1].lower()
     if file_ext not in expected_extensions:
         abort(400, "Invalid file type extension.")
 
     try:
-        return send_from_directory(directory, safe_filename, as_attachment=True)
+        return send_from_directory(directory, filename, as_attachment=True)
     except FileNotFoundError:
-        print(f"Server Error: File not found on disk: {os.path.join(directory, safe_filename)}")
+        print(f"Server Error: File not found on disk: {os.path.join(directory, filename)}")
         abort(404, "File not found on server.")
 
 # --- Dua Logic and Routes ---

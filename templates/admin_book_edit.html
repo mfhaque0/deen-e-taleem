@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Book - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Edit Book</h2>
+        <p class="text-muted">Update metadata, filename link, or cover image.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_books') }}" class="btn btn-secondary">Back to Books</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('admin_edit_book', index=index) }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" name="title" value="{{ book.title }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Author</label>
+                    <input class="form-control" name="author" value="{{ book.author }}" required>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="2">{{ book.description }}</textarea>
+                </div>
+                <div class="col-12">
+                    <div class="current-file-note p-3 rounded bg-light border text-muted">
+                        <strong>Current PDF:</strong> {% if book.filename and book.filename[:4] == 'http' %}<a href="{{ book.filename }}" target="_blank" rel="noopener">External link</a>{% else %}{{ book.filename }}{% endif %}<br>
+                        <strong>Current Cover:</strong> {{ book.cover_image or 'No cover set' }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Upload New PDF</label>
+                    <input class="form-control" type="file" name="pdf_file" accept="application/pdf">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or External Link</label>
+                    <input class="form-control" name="external_link" value="{{ book.filename }}" placeholder="Existing external link or local filename">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Upload New Cover</label>
+                    <input class="form-control" type="file" name="cover_file" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or Cover Filename</label>
+                    <input class="form-control" name="cover_name" value="{{ book.cover_image }}" placeholder="Cover image filename">
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

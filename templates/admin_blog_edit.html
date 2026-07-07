@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post %}Edit Blog{% else %}New Blog{% endif %} - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>{% if post %}Edit Blog{% else %}New Blog{% endif %}</h2>
+        <p class="text-muted">{% if post %}Update blog metadata and content.{% else %}Write a new blog post.{% endif %}</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_blogs') }}" class="btn btn-secondary">Back to Blogs</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" action="{% if post %}{{ url_for('admin_edit_blog', post_id=post.id) }}{% else %}{{ url_for('admin_new_blog') }}{% endif %}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" name="title" value="{{ post.title if post }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Author</label>
+                    <input class="form-control" name="author" value="{{ post.author if post }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control" name="date" value="{{ post.date if post }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Summary</label>
+                    <input class="form-control" name="summary" value="{{ post.summary if post }}" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Content (Markdown)</label>
+                    <textarea class="form-control" name="content" rows="10" required>{{ content if content else '' }}</textarea>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">{% if post %}Save Changes{% else %}Create Post{% endif %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

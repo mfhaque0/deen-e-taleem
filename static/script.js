@@ -1,3 +1,78 @@
+// Deen-e-Taleem — UX interactions: search, preview, scroll reveal
+(function(){
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Navbar search submission - redirect to books with query
+    const navbarSearchForm = document.getElementById('navbarSearchForm');
+    if(navbarSearchForm){
+      navbarSearchForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        const q = this.querySelector('input[type="search"], input[name="q"], .search-input');
+        const val = q ? q.value.trim() : '';
+        if(val) window.location.href = `/books?query=${encodeURIComponent(val)}`;
+      });
+    }
+
+    // Preview modal logic for verse artwork
+    const previewButtons = document.querySelectorAll('[data-action="preview"]');
+    const previewModalEl = document.getElementById('previewModal');
+    let previewModal = null;
+    if(previewModalEl){ previewModal = new bootstrap.Modal(previewModalEl); }
+
+    document.addEventListener('click', async function(evt){
+      const btn = evt.target.closest('[data-action="preview"]');
+      if(!btn) return;
+      evt.preventDefault();
+      const url = btn.getAttribute('data-preview-url');
+      if(!url) return;
+      try{
+        const res = await fetch(url);
+        if(!res.ok) throw new Error('Failed to fetch preview');
+        const svgText = await res.text();
+        const blob = new Blob([svgText], {type: 'image/svg+xml'});
+        const blobUrl = URL.createObjectURL(blob);
+        const previewImg = document.getElementById('previewImage');
+        const downloadLink = document.getElementById('downloadLink');
+        if(previewImg){ previewImg.src = blobUrl; previewImg.alt = 'Verse artwork'; }
+        if(downloadLink){ downloadLink.href = blobUrl; downloadLink.setAttribute('download','deen-e-taleem-verse.svg'); }
+        previewModal && previewModal.show();
+      }catch(err){ console.error(err); alert('Unable to load preview. Please try downloading directly.'); }
+    });
+
+    // IntersectionObserver for subtle reveal animations
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, {threshold:0.08});
+
+    document.querySelectorAll('.fade-in, .glass-card, .verse-card, .hero-feature-card').forEach(el=>observer.observe(el));
+
+    // Accessible keyboard support for preview modal download via 'd' key when modal open
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'd' && document.querySelector('.modal.show')){
+        const downloadLink = document.getElementById('downloadLink');
+        if(downloadLink) downloadLink.click();
+      }
+    });
+
+        // Collapse mobile navbar after clicking a link (improves mobile UX)
+        const navMain = document.getElementById('navMain');
+        if(navMain){
+            document.querySelectorAll('#navMain .nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(window.innerWidth < 992){
+                        const bsCollapse = bootstrap.Collapse.getInstance(navMain) || new bootstrap.Collapse(navMain, {toggle:false});
+                        bsCollapse.hide();
+                    }
+                });
+            });
+        }
+
+    // Flash message auto-dismiss handled elsewhere; keep page tidy
+  });
+})();
 // Ensure DOM content is fully loaded before executing scripts
 document.addEventListener('DOMContentLoaded', () => {
     // Check if we are on the quiz playing page before executing quiz logic

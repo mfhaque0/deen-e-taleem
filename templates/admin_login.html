@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Login - Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Admin Login</h2>
+                <form method="POST" action="{{ url_for('admin_login') }}">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Admin Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter admin password" required>
+                    </div>
+                    <button type="submit" class="btn btn-action w-100">Login</button>
+                </form>
+                <p class="text-muted small mt-3">Use the admin password to access the management dashboard.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

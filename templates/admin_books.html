@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Books - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Manage Books</h2>
+        <p class="text-muted">Add new books, edit existing metadata, or delete entries.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Add New Book</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('admin_books') }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" name="title" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Author</label>
+                    <input class="form-control" name="author" required>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="2"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Upload PDF</label>
+                    <input class="form-control" type="file" name="pdf_file" accept="application/pdf">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or External Link</label>
+                    <input class="form-control" name="external_link" placeholder="Enter full URL if book is hosted externally">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Cover Image Upload</label>
+                    <input class="form-control" type="file" name="cover_file" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or Cover Image Filename</label>
+                    <input class="form-control" name="cover_name" placeholder="e.g. example_cover.jpg">
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">Add Book</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>File</th>
+                <th>Cover</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>
+                        {% if book.filename and book.filename[:4] == 'http' %}
+                            <a href="{{ book.filename }}" target="_blank" rel="noopener" class="text-decoration-none">External link</a>
+                        {% else %}
+                            {{ book.filename }}
+                        {% endif %}
+                    </td>
+                    <td>{{ book.cover_image or 'No cover set' }}</td>
+                    <td>
+                        <a href="{{ url_for('admin_edit_book', index=loop.index0) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form method="POST" action="{{ url_for('admin_delete_book', index=loop.index0) }}" style="display:inline-block;" onsubmit="return confirm('Delete this book?');">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

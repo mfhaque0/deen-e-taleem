@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if verse %}Edit Verse{% else %}New Verse{% endif %} - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>{% if verse %}Edit Verse{% else %}New Verse{% endif %}</h2>
+        <p class="text-muted">{% if verse %}Update the existing Quran verse card.{% else %}Add a new Quran verse with translation.{% endif %}</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_quran') }}" class="btn btn-secondary">Back to Quran Management</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" action="{% if verse %}{{ url_for('admin_edit_quran', verse_id=verse.id) }}{% else %}{{ url_for('admin_new_quran') }}{% endif %}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Reference</label>
+                    <input class="form-control" name="reference" value="{{ verse.reference if verse }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Translation Reference</label>
+                    <input class="form-control" name="translation_reference" value="{{ verse.translation_reference if verse }}" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Arabic Text</label>
+                    <textarea class="form-control" name="arabic" rows="3" required>{{ verse.arabic if verse }}</textarea>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Transliteration</label>
+                    <textarea class="form-control" name="transliteration" rows="2">{{ verse.transliteration if verse }}</textarea>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Translation</label>
+                    <textarea class="form-control" name="translation" rows="4" required>{{ verse.translation if verse }}</textarea>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">{% if verse %}Save Verse{% else %}Add Verse{% endif %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Wallpapers - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Manage Wallpapers</h2>
+        <p class="text-muted">Add, edit, or delete wallpapers and thumbnails.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Add New Wallpaper</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('admin_wallpapers') }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" name="title" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <input class="form-control" name="description" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Wallpaper Image</label>
+                    <input class="form-control" type="file" name="image_file" accept="image/*" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Thumbnail Image</label>
+                    <input class="form-control" type="file" name="thumbnail_file" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or Thumbnail Filename</label>
+                    <input class="form-control" name="thumbnail_name" placeholder="existing thumbnail filename">
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">Add Wallpaper</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Thumbnail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wallpaper in wallpapers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ wallpaper.title }}</td>
+                    <td>{{ wallpaper.description }}</td>
+                    <td>{{ wallpaper.filename }}</td>
+                    <td>{{ wallpaper.thumbnail_image }}</td>
+                    <td>
+                        <a href="{{ url_for('admin_edit_wallpaper', index=loop.index0) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form method="POST" action="{{ url_for('admin_delete_wallpaper', index=loop.index0) }}" style="display:inline-block;" onsubmit="return confirm('Delete this wallpaper?');">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

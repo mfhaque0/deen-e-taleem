@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Wallpaper - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Edit Wallpaper</h2>
+        <p class="text-muted">Update wallpaper title, images, or description.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_wallpapers') }}" class="btn btn-secondary">Back to Wallpapers</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('admin_edit_wallpaper', index=index) }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" name="title" value="{{ wallpaper.title }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <input class="form-control" name="description" value="{{ wallpaper.description }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Wallpaper Image</label>
+                    <input class="form-control" type="file" name="image_file" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Thumbnail Image</label>
+                    <input class="form-control" type="file" name="thumbnail_file" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Or Thumbnail Filename</label>
+                    <input class="form-control" name="thumbnail_name" value="{{ wallpaper.thumbnail_image }}">
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">Save Wallpaper</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

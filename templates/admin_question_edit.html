@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if question %}Edit Question{% else %}New Question{% endif %} - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>{% if question %}Edit Question{% else %}New Question{% endif %}</h2>
+        <p class="text-muted">{% if question %}Update the quiz question and options.{% else %}Create a new quiz question.{% endif %}</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_questions') }}" class="btn btn-secondary">Back to Questions</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" action="{% if question %}{{ url_for('admin_edit_question', index=index) }}{% else %}{{ url_for('admin_new_question') }}{% endif %}">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Question</label>
+                    <textarea class="form-control" name="question" rows="2" required>{{ question.question if question }}</textarea>
+                </div>
+                {% for i in range(4) %}
+                    <div class="col-6">
+                        <label class="form-label">Option {{ i + 1 }}</label>
+                        <input class="form-control" name="option_{{ i }}" value="{{ question.options[i] if question and question.options and question.options[i] }}" required>
+                    </div>
+                {% endfor %}
+                <div class="col-md-4">
+                    <label class="form-label">Correct Option Index</label>
+                    <input type="number" class="form-control" name="correct" min="0" max="3" value="{{ question.correct if question }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Question Level</label>
+                    <input class="form-control" name="level" value="{{ question.level if question }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Explanation</label>
+                    <input class="form-control" name="explanation" value="{{ question.explanation if question }}" required>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-action">{% if question %}Save Question{% else %}Add Question{% endif %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

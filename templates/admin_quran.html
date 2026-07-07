@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Quran Verses - Admin | Deen-e-Taleem{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Manage Quran Verses</h2>
+        <p class="text-muted">Add, edit, or remove Quran verse cards.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary me-2">Back to Dashboard</a>
+        <a href="{{ url_for('admin_new_quran') }}" class="btn btn-action">Add Verse</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Reference</th>
+                <th>Arabic</th>
+                <th>Translation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for verse in verses %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ verse.reference }}</td>
+                    <td>{{ verse.arabic[:40] }}{% if verse.arabic|length > 40 %}...{% endif %}</td>
+                    <td>{{ verse.translation[:40] }}{% if verse.translation|length > 40 %}...{% endif %}</td>
+                    <td>
+                        <a href="{{ url_for('admin_edit_quran', verse_id=verse.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form method="POST" action="{{ url_for('admin_delete_quran', verse_id=verse.id) }}" style="display:inline-block;" onsubmit="return confirm('Delete this verse?');">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
